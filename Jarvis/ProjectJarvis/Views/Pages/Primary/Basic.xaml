@@ -1,0 +1,153 @@
+﻿<Page x:Class="Jarvis.Project.Views.Pages.Primary.Basic"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Jarvis" Width="965" Height="700">
+    <Page.Content>
+        <Grid x:Name="MainGrid">
+            <Grid Width="511" Height="321" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,32,0,0">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="ОТВЕТЫ JARVIS" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="20"/>
+                    <Grid Width="511" Height="282" Margin="0,10,0,0">
+                        <Border Background="#D9D9D9" Opacity="0.05" CornerRadius="15"/>
+                        <StackPanel Orientation="Vertical" Margin="20,20,20,20">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <Ellipse Width="14" Height="14" Margin="0,0,10,0" Fill="{DynamicResource White}"/>
+                                <TextBlock x:Name="User_Command_Text" Text=" " Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="14"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <Ellipse Width="14" Height="14" Margin="0,0,10,0" Fill="{DynamicResource Initial}"/>
+                                <TextBlock x:Name="Jarvis_Command_Text" Text=" " Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="14"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+            <Grid Width="511" Height="306" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15,0,0,30">
+                <Border Background="#D9D9D9" Opacity="0.05" CornerRadius="15"/>
+                <Path Data="M177.375 95.3124C177.375 112.522 167.887 127.434 154.039 134.73C150.095 136.808 145.812 133.589 145.812 129.131C145.812 126.413 147.484 124.02 149.803 122.604C158.637 117.208 164.75 107.181 164.75 95.3124C164.75 77.4456 150.896 63.75 134.761 63.75C132.324 63.75 129.938 64.0626 127.645 64.6549C124.831 65.3816 121.699 63.5669 121.237 60.6973C120.988 59.1498 120.679 57.6235 120.312 56.1213C120.31 56.1161 120.305 56.1132 120.3 56.1152C120.295 56.1173 120.289 56.1143 120.288 56.1091C114.302 31.236 92.6823 13.25 67.5898 13.25C38.0063 13.25 13.25 38.2504 13.25 70.0625C13.25 89.0843 22.1013 105.671 35.5432 115.933C37.3455 117.309 38.5 119.402 38.5 121.67C38.5 126.701 33.2223 129.892 29.1552 126.931C11.902 114.371 0.625 93.5821 0.625 70.0625C0.625 31.7132 30.6062 0.625 67.5898 0.625C97.3553 0.625 122.585 20.7623 131.299 48.6153C131.769 50.1176 133.187 51.125 134.761 51.125C158.296 51.125 177.375 70.9084 177.375 95.3124ZM51.1316 129.458C51.1307 126.438 52.0926 123.156 53.4033 120.086C56.1671 113.612 64.7523 113.651 67.5944 120.09C69.0066 123.29 70.0682 126.634 70.0691 129.458C70.0708 135.004 65.8329 139.5 60.6034 139.5C55.374 139.5 51.1333 135.004 51.1316 129.458ZM84.9658 120.086C83.6551 123.156 82.6932 126.438 82.6941 129.458C82.6958 135.004 86.9365 139.5 92.1659 139.5C97.3954 139.5 101.633 135.004 101.632 129.458C101.631 126.634 100.569 123.29 99.1569 120.09C96.3148 113.651 87.7296 113.612 84.9658 120.086ZM69.277 161.02C69.276 158 70.2379 154.718 71.5487 151.648C74.3124 145.174 82.8976 145.213 85.7398 151.653C87.152 154.853 88.2136 158.197 88.2145 161.02C88.2162 166.566 83.9782 171.062 78.7488 171.062C73.5193 171.062 69.2787 166.566 69.277 161.02ZM116.528 120.086C115.218 123.156 114.256 126.438 114.257 129.458C114.258 135.004 118.499 139.5 123.728 139.5C128.958 139.5 133.196 135.004 133.194 129.458C133.193 126.634 132.132 123.29 130.719 120.09C127.877 113.651 119.292 113.612 116.528 120.086ZM100.933 161.02C100.933 158 101.894 154.718 103.205 151.648C105.969 145.174 114.554 145.213 117.396 151.653C118.809 154.853 119.87 158.197 119.871 161.02C119.873 166.566 115.635 171.062 110.405 171.062C105.176 171.062 100.935 166.566 100.933 161.02Z" Fill="{DynamicResource Initial}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,34,43,0"/>
+                <TextBlock Text="ПОГОДА" Margin="27,20,0,0" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="30"/>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,0,0,0">
+                    <TextBlock x:Name="WeatherBlock" Text="???" Margin="0,0,0,2.5" Foreground="{DynamicResource Initial}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,2.5,0,2.5">
+                        <TextBlock Text="Вероятность осадков - " Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="16"/>
+                        <TextBlock x:Name="CloudinessBlock" Text="?%" Foreground="{DynamicResource Initial}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,2.5,0,2.5">
+                        <TextBlock Text="Влажность - " Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="16"/>
+                        <TextBlock x:Name="HumidityBlock" Text="?%" Foreground="{DynamicResource Initial}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,2.5,0,0">
+                        <TextBlock Text="Ветер - " Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="16"/>
+                        <TextBlock x:Name="WindBlock" Text="? м/с" Foreground="{DynamicResource Initial}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="16"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock x:Name="CityBlock" Text="?" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="27,0,0,41" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="18"/>
+                <Grid Width="77" Height="39" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,23,38">
+                    <Border Background="{DynamicResource Initial}" CornerRadius="9"/>
+                    <TextBlock x:Name="TempBlock" Text="?°C" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="30"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,13">
+                    <Border Width="110" Height="7" Margin="20,0,5,0" Background="#D9D9D9" Opacity="0.6" CornerRadius="2.5"/>
+                    <Border Width="110" Height="7" Margin="5,0,5,0" Background="#D9D9D9" Opacity="0.1" CornerRadius="2.5"/>
+                    <Border Width="110" Height="7" Margin="5,0,5,0" Background="#D9D9D9" Opacity="0.1" CornerRadius="2.5"/>
+                    <Border Width="110" Height="7" Margin="5,0,20,0" Background="#D9D9D9" Opacity="0.1" CornerRadius="2.5"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Width="382" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,34,25,0">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="СПИСОК КОМАНД" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="20"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Width="362">
+                            <Grid Margin="0,11,0,2">
+                                <Border Background="#D9D9D9" Opacity="0.1" CornerRadius="11"/>
+                                <Border Width="21" Height="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,13,9,0" CornerRadius="2.5" Background="{DynamicResource Initial}"/>
+                                <Grid Margin="10,9,10,9">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Сделать громче" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <Ellipse Width="7" Height="7" Margin="0,0,7,0" Fill="{DynamicResource Initial}"/>
+                                            <TextBlock Text="Фразы активации: громче, погромче, громко" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                            <Ellipse Width="7" Height="7" Margin="0,0,7,0" Fill="{DynamicResource White}"/>
+                                            <TextBlock Text="Необязательные фразы: сделай, поставь" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Margin="0,2,0,2">
+                                <Border Background="#D9D9D9" Opacity="0.1" CornerRadius="11"/>
+                                <Border Width="21" Height="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,13,9,0" CornerRadius="2.5" Background="{DynamicResource White}" Opacity="0.1"/>
+                                <Grid Margin="10,9,10,9">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Сделать тише" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Margin="0,2,0,2">
+                                <Border Background="#D9D9D9" Opacity="0.1" CornerRadius="11"/>
+                                <Border Width="21" Height="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,13,9,0" CornerRadius="2.5" Background="{DynamicResource White}" Opacity="0.1"/>
+                                <Grid Margin="10,9,10,9">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Перезагрузить ПК" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Margin="0,2,0,2">
+                                <Border Background="#D9D9D9" Opacity="0.1" CornerRadius="11"/>
+                                <Border Width="21" Height="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,13,9,0" CornerRadius="2.5" Background="{DynamicResource White}" Opacity="0.1"/>
+                                <Grid Margin="10,9,10,9">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Выключить ПК" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Margin="0,2,0,2">
+                                <Border Background="#D9D9D9" Opacity="0.1" CornerRadius="11"/>
+                                <Border Width="21" Height="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,13,9,0" CornerRadius="2.5" Background="{DynamicResource White}" Opacity="0.1"/>
+                                <Grid Margin="10,9,10,9">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Открыть ютуб" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Margin="0,2,0,0">
+                                <Border Background="#D9D9D9" Opacity="0.1" CornerRadius="11"/>
+                                <Border Width="21" Height="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,13,9,0" CornerRadius="2.5" Background="{DynamicResource White}" Opacity="0.1"/>
+                                <Grid Margin="10,9,10,9">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Свернуть все окна" Foreground="{DynamicResource White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="12"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                        <Grid Width="9" Margin="11,11,0,0">
+                            <Border Background="{DynamicResource White}" Opacity="0.1" CornerRadius="2.5"/>
+                            <Border Height="20" VerticalAlignment="Top" Background="{DynamicResource Initial}" CornerRadius="2.5,2.5,0,0"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <Grid Margin="610,382,-287,-258">
+
+                <Ellipse Name="circle1" Width="120" Height="120" Fill="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8"/>
+                <Ellipse Name="circle2" Width="170" Height="170" Fill="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
+                <Ellipse Name="circle3" Width="220" Height="220" Fill="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.4"/>
+                <Ellipse Name="circle4" Width="270" Height="270" Fill="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.3"/>
+                <Ellipse Name="circle5" Width="340" Height="340" Fill="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.2"/>
+
+                <!--<Grid Margin="691,423,-178,-150">
+                <Path Data="M442.291 76.2859C529.092 104.482 583.517 182.318 620.812 265.577C658.683 350.12 684.485 444.854 644.894 528.581C603.442 616.243 516.372 677.037 420.2 689.831C329.486 701.899 245.209 653.582 178.842 590.581C117.075 531.947 83.1003 453.322 81.3958 368.213C79.5395 275.519 97.3018 177.256 169.396 118.939C244.684 58.0387 350.155 46.3562 442.291 76.2859Z" Fill="{DynamicResource Initial}" Opacity="0.2"/>
+                <Path Data="M365.493 100.347C437.167 104.098 494.35 152.145 539.626 207.798C585.6 264.31 624.482 331.018 611.45 402.676C597.805 477.701 544.04 541.603 473.591 570.896C407.14 598.526 333.289 578.977 270.053 544.63C211.201 512.663 169.39 459.854 150.773 395.551C130.496 325.519 123.989 247.262 166.882 188.29C211.676 126.707 289.414 96.3653 365.493 100.347Z" Fill="{DynamicResource Initial}" Opacity="0.2"/>
+                <Path Data="M396.378 150.611C443.531 155.567 485.282 176.692 520.236 208.693C557.192 242.525 593.776 282.361 594.97 332.422C596.182 383.274 560.732 424.732 526.28 462.189C489.724 501.932 450.212 543.741 396.378 548.333C339.012 553.227 278.533 531.052 242.22 486.419C208.202 444.607 220.507 386.302 220.713 332.422C220.917 278.886 206.172 218.115 243.391 179.594C280.864 140.811 342.716 144.971 396.378 150.611Z" Fill="{DynamicResource Initial}" Opacity="0.3"/>
+                <Path Data="M371.687 200.024C415.268 200.389 460.674 206.189 489.826 238.6C520.91 273.158 532.985 322.003 522.043 367.186C511.265 411.695 476.081 444.181 435.1 464.59C393.316 485.398 344.729 496.477 302.541 476.499C260.07 456.387 236.648 411.902 226.781 365.942C217.094 320.818 220.682 271.351 251.036 236.596C280.126 203.288 327.477 199.653 371.687 200.024Z" Fill="{DynamicResource Initial}" Opacity="0.6"/>
+                <Path Data="M0,110a110.5,110 0 1,0 221,0a110.5,110 0 1,0 -221,0" Margin="269,238,0,0" Fill="{DynamicResource Initial}"/>
+                -->
+
+            </Grid>
+        </Grid>
+    </Page.Content>
+</Page>

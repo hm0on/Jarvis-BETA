@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +10,7 @@ using System.Reflection;
 using System.Windows.Media;
 using log4net;
 using Jarvis.Project.Settings.ConfigurationManager;
-using Jarvis.Project.Services.SpeechRecognition;
+using Jarvis.Project.Services.VoskSpeechRecognition;
 using Jarvis.Project.Services.HttpClientFolder;
 using Jarvis.ProjectJarvis.CommandsFolder;
 using System.Text.Json;
@@ -32,7 +31,7 @@ namespace Jarvis
         private readonly InputSimulator _simulator = new InputSimulator();
 
         private readonly SpeechRecognitionEngine recognizer;
-        private readonly SpeechRecognitionClass speechRecognizer;
+        private readonly VoskSpeechRecognition voskRecognizer;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static bool ON_vcom = true;
 
@@ -49,17 +48,14 @@ namespace Jarvis
             {
                 InitializeComponent();
 
-                speechRecognizer = new SpeechRecognitionClass(Dispatcher);
+                voskRecognizer = new VoskSpeechRecognition(Dispatcher);
                 Loaded += MainWindow_Loaded;
-
-                PreloadAccessibilityAssembly();
 
                 Thread.Sleep(1000);
 
                 log4net.Config.XmlConfigurator.Configure();
                 log.Info("All assemblies have been loaded");
 
-                speechRecognizer.InitializeSpeechRecognition();
 
                 SettingsManagerClass settingsManager = new SettingsManagerClass();
                 string city = settingsManager.Load();
@@ -98,6 +94,7 @@ namespace Jarvis
         {
             base.OnClosed(e);
             recognizer?.Dispose();
+            voskRecognizer?.Dispose();
         }
 
         public void CloseApplication(string processName)
@@ -228,6 +225,12 @@ namespace Jarvis
         public void UpdateExePathsManually()
         {
             pathManager.UpdateExePaths(exePaths);
+        }
+
+        private void MainButtonClick(object sender, RoutedEventArgs e)
+        {
+            voskRecognizer.InitializeVosk();
+            log.Info("Main button clicked and Vosk recognizer initialized.");
         }
     }
 }

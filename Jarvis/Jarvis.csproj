@@ -125,10 +125,6 @@
     <Reference Include="Microsoft.CognitiveServices.Speech.csharp, Version=1.38.0.28, Culture=neutral, PublicKeyToken=d2e6dcccb609e663, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CognitiveServices.Speech.1.38.0\lib\net462\Microsoft.CognitiveServices.Speech.csharp.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Speech, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Microsoft SDKs\Speech\v11.0\Assembly\Microsoft.Speech.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
@@ -218,6 +214,9 @@
     </Reference>
     <Reference Include="UIAutomationClient" />
     <Reference Include="UIAutomationTypes" />
+    <Reference Include="Vosk, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vosk.0.3.38\lib\netstandard2.0\Vosk.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -230,6 +229,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProjectJarvis\Resources\SpeechDictionaries\ActionsListClass.cs" />
     <Compile Include="ProjectJarvis\Resources\SpeechDictionaries\ProgramListClass.cs" />
     <Compile Include="ProjectJarvis\Resources\SpeechDictionaries\SiteListClass.cs" />
@@ -241,9 +243,13 @@
     <Compile Include="ProjectJarvis\Configuration\Commands\ExeCommandsClass.cs" />
     <Compile Include="ProjectJarvis\Configuration\Commands\UrlCommandsClass.cs" />
     <Compile Include="ProjectJarvis\Services\HttpClientFolder\WheaterClass.cs" />
-    <Compile Include="ProjectJarvis\Services\SpeechRecognition\SpeechRecognitionClass.cs" />
+    <Compile Include="ProjectJarvis\Services\Recognition\VoskRecognition.cs" />
+    <Compile Include="ProjectJarvis\Services\Recognition\VoskWrapper.cs" />
     <Compile Include="ProjectJarvis\Services\WindowUtilities\WindowManagerClass.cs" />
-    <Page Include="Main.xaml" />
+    <Page Include="Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ProjectJarvis\Views\Pages\Primary\Basic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -270,7 +276,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.xaml.cs" />
     <Compile Include="ProjectJarvis\Settings\AntiPiracy\AntiPiracyClass.cs" />
     <Compile Include="ProjectJarvis\Settings\ConfigurationManager\SettingsManagerClass.cs" />
     <Compile Include="ProjectJarvis\Settings\PathManager\ExePathManagerClass.cs" />
@@ -355,9 +360,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets'))" />
+    <Error Condition="!Exists('..\packages\Vosk.0.3.38\build\Vosk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Vosk.0.3.38\build\Vosk.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.targets')" />
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets')" />
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets')" />
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets')" />
+  <Import Project="..\packages\Vosk.0.3.38\build\Vosk.targets" Condition="Exists('..\packages\Vosk.0.3.38\build\Vosk.targets')" />
 </Project>

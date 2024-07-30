@@ -7,6 +7,7 @@ using NAudio.Wave;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Jarvis.ProjectJarvis.CommandsFolder;
 
 namespace Jarvis.Project.Services.VoskSpeechRecognition
 {
@@ -25,7 +26,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
 
         public void InitializeVosk()
         {
-            var modelPath = "D:\\My Programms\\C#\\Jarvis\\Jarvis\\ProjectJarvis\\Resources\\vosk-model-small-ru-0.22";
+            var modelPath = "D:\\Prog\\vosk-model-small-ru-0.22";
             vosk = new VoskWrapper(modelPath, 16000.0f);
 
             waveIn = new WaveInEvent();

@@ -8,6 +8,8 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Jarvis.ProjectJarvis.CommandsFolder;
+using System.IO;
+using System.Reflection;
 
 namespace Jarvis.Project.Services.VoskSpeechRecognition
 {
@@ -26,8 +28,19 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
 
         public void InitializeVosk()
         {
-            var modelPath = "D:\\Prog\\vosk-model-small-ru-0.22";
-            vosk = new VoskWrapper(modelPath, 16000.0f);
+            // Получаем текущую директорию исполняемого файла
+            var appDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            // Поднимаемся на три уровня вверх от текущей директории
+            var projectDir = Directory.GetParent(appDir).Parent.Parent.FullName;
+
+            // Относительный путь к модели
+            var relativePath = @"ProjectJarvis\Resources\VoskModels\vosk-model-small-ru-0.22";
+
+            // Комбинируем проектную директорию с относительным путем
+            var fullPath = Path.Combine(projectDir, relativePath);
+
+            vosk = new VoskWrapper(fullPath, 16000.0f);
 
             waveIn = new WaveInEvent();
             waveIn.WaveFormat = new WaveFormat(16000, 1);

@@ -54,19 +54,19 @@ namespace Jarvis
                 Thread.Sleep(1000);
 
                 log4net.Config.XmlConfigurator.Configure();
-                log.Info("All assemblies have been loaded");
+                log.Info("[SYSTEM]: All assemblies have been loaded");
 
 
                 SettingsManagerClass settingsManager = new SettingsManagerClass();
                 string city = settingsManager.Load();
 
-                log.Info("User entered city: " + city);
+                log.Info("[WEATHER Parser]: User entered city: " + city);
 
                 _ = WheaterClass.GetWeatherAsync(city);
             }
             catch (Exception ex)
             {
-                log.Error($"An error occurred in Jarvis when loading assemblies: {ex.Message}");
+                log.Error($"[SYSTEM]: An error occurred in Jarvis when loading assemblies: {ex.Message}");
             }
 
             exePaths = ExePathManagerClass.LoadPathsFromJson();
@@ -81,8 +81,8 @@ namespace Jarvis
         {
             try
             {
-                Assembly.LoadFrom(@"C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll");
-                log.Info("Accessibility.dll is loaded.");
+                string AssemblyDllPath = Properties.Settings.Default.AssemblyDllPath;
+                Assembly.LoadFrom(AssemblyDllPath);
             }
             catch
             {
@@ -105,7 +105,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"Error when closing the process: {processName}. Error: {ex.Message}");
+                log.Error($"[SYSTEM]: Error when closing the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -118,7 +118,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"Error when minimizing the process: {processName}. Error: {ex.Message}");
+                log.Error($"[SYSTEM]: Error when minimizing the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -131,7 +131,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"Error when restoring the process: {processName}. Error: {ex.Message}");
+                log.Error($"[SYSTEM]: Error when restoring the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -191,27 +191,46 @@ namespace Jarvis
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (AntiPiracyClass.IsFirstRun())
+            bool AntiPiracyStatus = Properties.Settings.Default.AntiPiracyStatus;
+            if (AntiPiracyClass.IsFirstRun()) 
             {
-                await AntiPiracyClass.GetHwid_MBox_Y();
-                log.Info("First run check: YES");
+                if (AntiPiracyStatus == true)
+                {
+                    await AntiPiracyClass.GetHwid_MBox_Y();
+                    log.Info("[ANTI PIRACY]: First run check: YES");
+                    log.Info("[ANTI PIRACY]: Mode: ON");
+                }
+                else
+                {
+                    log.Info("[ANTI PIRACY]: First run check: YES");
+                    log.Warn("[ANTI PIRACY]: Mode: OFF");
+                }
             }
             else
             {
-                await AntiPiracyClass.GetHwid_MBox_N();
-                log.Info("First run check: NO");
+                if (AntiPiracyStatus == true)
+                {
+                    await AntiPiracyClass.GetHwid_MBox_N();
+                    log.Info("[ANTI PIRACY]: First run check: NO");
+                    log.Info("[ANTI PIRACY]: Mode: ON");
+                }
+                else
+                {
+                    log.Info("[ANTI PIRACY]: First run check: YES");
+                    log.Warn("[ANTI PIRACY]: Mode: OFF");
+                }
             }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Program shutdown: button is pressed");
+            log.Info("[SYSTEM]: Program shutdown: close button is pressed");
             Application.Current.Shutdown();
         }
 
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Minimize the program: button is pressed");
+            log.Info("[SYSTEM]: Minimize the program: minimize button is pressed");
             this.WindowState = WindowState.Minimized;
         }
 
@@ -225,12 +244,6 @@ namespace Jarvis
         public void UpdateExePathsManually()
         {
             pathManager.UpdateExePaths(exePaths);
-        }
-
-        private void MainButtonClick(object sender, RoutedEventArgs e)
-        {
-            voskRecognizer.InitializeVosk();
-            log.Info("Main button clicked and Vosk recognizer initialized.");
         }
     }
 }

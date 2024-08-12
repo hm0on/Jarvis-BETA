@@ -5,7 +5,7 @@ namespace Jarvis.Project.Services.HttpClientFolder
 {
     public class WheaterClass
     {
-        private const string APIKEY = "e327b05bf5e93f0560363f8bc007f7e2";
+        private static readonly string APIKEY = Properties.Settings.Default.APIkeyWeather;
 
         public static async Task<HttpClient> GetWeatherAsync(string city)
         {

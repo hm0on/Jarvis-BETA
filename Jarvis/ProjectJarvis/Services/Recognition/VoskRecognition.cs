@@ -31,11 +31,11 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
             // Получаем текущую директорию исполняемого файла
             var appDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            // Поднимаемся на три уровня вверх от текущей директории
+            // Поднимаемся на два уровня вверх от текущей директории
             var projectDir = Directory.GetParent(appDir).Parent.Parent.FullName;
 
             // Относительный путь к модели
-            var relativePath = @"ProjectJarvis\Resources\VoskModels\vosk-model-small-ru-0.22";
+            string relativePath = Properties.Settings.Default.relativePathVoskModel;
 
             // Комбинируем проектную директорию с относительным путем
             var fullPath = Path.Combine(projectDir, relativePath);
@@ -47,7 +47,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
             waveIn.DataAvailable += WaveIn_DataAvailable;
             waveIn.StartRecording();
 
-            log.Info("Vosk recognizer initialized: COMPLETED.");
+            log.Info("[VOSK]: Successful initialization. The VOSK model has been successfully initialized.");
         }
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
@@ -68,7 +68,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
 
                         _dispatcher.Invoke(() =>
                         {
-                            log.Info($"NEW ACTION: command: '{command}', service: '{service}'");
+                            log.Info($"[ACTION RECOGNIZED]: command: '{command}', service: '{service}'");
                             OpenService(service, command);
                         });
                     }
@@ -90,13 +90,13 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
                     if (exePaths.TryGetValue(exeName, out string exePath))
                     {
                         Process.Start(new ProcessStartInfo(exePath) { UseShellExecute = true });
-                        log.Info($"Opened program: '{exePath}'.");
+                        log.Info($"[OPENING THE PROGRAM]: opening the program in the path: '{exePath}'.");
                         programOpened = true;
                         break;
                     }
                     else
                     {
-                        log.Warn($"Path for the program '{exeName}' not found.");
+                        log.Error($"[OPENING THE PROGRAM]: path '{exeName}' not found.");
                     }
                 }
             }
@@ -109,12 +109,12 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
                     if (entry.Key.Contains(service))
                     {
                         Process.Start(new ProcessStartInfo(entry.Value) { UseShellExecute = true });
-                        log.Info($"Open site: '{entry.Value}'.");
+                        log.Info($"[OPEN THE SITE]: opening the site by this URL: '{entry.Value}'.");
                         return;
                     }
                 }
 
-                log.Warn($"Service or program '{service}' not found.");
+                log.Error($"[OPEN THE SITE / PROGRAM]: Service or program '{service}' not found.");
             }
         }
 

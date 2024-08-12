@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Media;
+using System.Reflection;
 using Jarvis.Project.Views.Pages;
+using Jarvis.Properties;
 
 namespace Jarvis.Project.Settings.VoiceAssistant
 {
@@ -15,7 +18,7 @@ namespace Jarvis.Project.Settings.VoiceAssistant
             switch (Jarvis_Voice_answer)
             {
                 case 1:
-                    //Basic.UpdateJarvisPhrazHistory("Есть!");
+                    //Basic.UpdateJarvisPhrazHistory("Есть!"); <-- временно выключено
                     var yes = new SoundPlayer(@"C:\Program Files\Jarvis\JarvisVoice\Есть.wav");
                     yes.Play();
                     break;

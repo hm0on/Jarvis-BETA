@@ -116,6 +116,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
 
                 log.Error($"[OPEN THE SITE / PROGRAM]: Service or program '{service}' not found.");
             }
+            Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
         }
 
         public void Dispose()

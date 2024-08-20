@@ -313,6 +313,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="ProjectJarvis\Resources\AssistantVoices\Да сэр%28второй%29.wav" />
+    <Content Include="ProjectJarvis\Resources\AssistantVoices\Да сэр.wav" />
+    <Content Include="ProjectJarvis\Resources\AssistantVoices\Есть.wav" />
+    <Content Include="ProjectJarvis\Resources\AssistantVoices\Загружаю сэр.wav" />
+    <Content Include="ProjectJarvis\Resources\AssistantVoices\Запрос выполнен сэр.wav" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -360,7 +365,6 @@
   <ItemGroup>
     <Folder Include="ProjectJarvis\Assets\Images\" />
     <Folder Include="ProjectJarvis\Assets\Voices\" />
-    <Folder Include="ProjectJarvis\Resources\AssistantVoices\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />

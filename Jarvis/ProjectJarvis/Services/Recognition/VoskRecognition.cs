@@ -138,6 +138,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
                                 }
                             }
                         }
+                        Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
                     }
                 }
             };

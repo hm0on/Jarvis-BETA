@@ -43,6 +43,8 @@ public partial class Basic : Page
     ~Basic()
     {
         waveIn.DataAvailable -= OnDataAvailable;
+        waveIn.StopRecording();
+        waveIn.Dispose();
     }
 
     private async void LoadWeatherData()

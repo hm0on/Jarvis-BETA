@@ -40,6 +40,11 @@ public partial class Basic : Page
         LoadWeatherData();
     }
 
+    ~Basic()
+    {
+        waveIn.DataAvailable -= OnDataAvailable;
+    }
+
     private async void LoadWeatherData()
     {
         SettingsManagerClass settings = new SettingsManagerClass();
@@ -255,7 +260,7 @@ public partial class Basic : Page
                 maxVolume = volume;
         }
 
-        Dispatcher.Invoke(() => AdjustCircleScales(maxVolume));
+        Dispatcher.BeginInvoke(() => AdjustCircleScales(maxVolume));
     }
 
     private void AdjustCircleScales(float volume)

@@ -1,6 +1,4 @@
-﻿using Jarvis.Assets.SpeechResources;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Jarvis.ProjectJarvis.CommandsFolder
 {

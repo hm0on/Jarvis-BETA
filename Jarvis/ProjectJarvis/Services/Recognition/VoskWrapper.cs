@@ -29,16 +29,23 @@ public class VoskWrapper : IDisposable
 
     public VoskWrapper(string modelPath, float sampleRate)
     {
-        model = vosk_model_new(modelPath);
-        if (model == IntPtr.Zero)
+        try
         {
-            throw new Exception("Failed to initialize Vosk model.");
-        }
+            model = vosk_model_new(modelPath);
+            if (model == IntPtr.Zero)
+            {
+                throw new Exception("Failed to initialize Vosk model.");
+            }
 
-        recognizer = vosk_recognizer_new(model, sampleRate);
-        if (recognizer == IntPtr.Zero)
+            recognizer = vosk_recognizer_new(model, sampleRate);
+            if (recognizer == IntPtr.Zero)
+            {
+                throw new Exception("Failed to initialize Vosk recognizer.");
+            }
+        }
+        catch
         {
-            throw new Exception("Failed to initialize Vosk recognizer.");
+            throw new Exception("Failed to IMPORT Vosk dll");
         }
     }
 

@@ -12,25 +12,15 @@ using log4net;
 using Jarvis.Project.Settings.ConfigurationManager;
 using Jarvis.Project.Services.VoskSpeechRecognition;
 using Jarvis.Project.Services.HttpClientFolder;
-using Jarvis.ProjectJarvis.CommandsFolder;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Jarvis.Project.Settings.PathManager;
 using Jarvis.Project.Settings.AntiPiracy;
-using Jarvis.Project.Settings.SystemUtilities;
 using Jarvis.Project.Settings.VoiceAssistant;
 using Jarvis.Project.Services.WindowUtilities;
-using System.Speech.Recognition;
 
 namespace Jarvis
 {
     public partial class MainWindow : Window
     {
-        private readonly PowerManagerClass _power = new PowerManagerClass();
-        private readonly RecycleBinManagerClass _shell32 = new RecycleBinManagerClass();
-        private readonly InputSimulator _simulator = new InputSimulator();
-
-        private readonly SpeechRecognitionEngine recognizer;
         private readonly VoskSpeechRecognition voskRecognizer;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static bool ON_vcom = true;
@@ -49,7 +39,8 @@ namespace Jarvis
                 InitializeComponent();
 
                 voskRecognizer = new VoskSpeechRecognition(Dispatcher);
-                Loaded += MainWindow_Loaded;
+
+                ContentRendered += MainWindow_Loaded;
 
                 Thread.Sleep(1000);
 
@@ -63,6 +54,8 @@ namespace Jarvis
                 log.Info("[WEATHER Parser]: User entered city: " + city);
 
                 _ = WheaterClass.GetWeatherAsync(city);
+
+                
             }
             catch (Exception ex)
             {
@@ -93,7 +86,6 @@ namespace Jarvis
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            recognizer?.Dispose();
             voskRecognizer?.Dispose();
         }
 
@@ -190,7 +182,7 @@ namespace Jarvis
             ChangeGridButton(SettingsGridButton);
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void MainWindow_Loaded(object sender, EventArgs e)
         {
             bool AntiPiracyStatus = Properties.Settings.Default.AntiPiracyStatus;
             if (AntiPiracyClass.IsFirstRun()) 

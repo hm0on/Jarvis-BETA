@@ -364,7 +364,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ProjectJarvis\Assets\Images\" />
-    <Folder Include="ProjectJarvis\Assets\Voices\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
@@ -376,12 +375,10 @@
     <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets'))" />
     <Error Condition="!Exists('..\packages\Vosk.0.3.38\build\Vosk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Vosk.0.3.38\build\Vosk.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.targets')" />
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.ONNX.Runtime.targets')" />
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Telemetry.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Telemetry.targets')" />
-  <Import Project="..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.1.38.0\build\net462\Microsoft.CognitiveServices.Speech.Extension.Embedded.SR.targets')" />
   <Import Project="..\packages\Vosk.0.3.38\build\Vosk.targets" Condition="Exists('..\packages\Vosk.0.3.38\build\Vosk.targets')" />
 </Project>

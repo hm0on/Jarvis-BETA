@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using Jarvis.ProjectJarvis.CommandsFolder;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace Jarvis.Project.Services.VoskSpeechRecognition
 {
@@ -76,51 +77,90 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
             }
         }
 
+        private Dictionary<Func<string, bool>, Action> VoskCommandProcess(string service, string command)
+        {
+            return new Dictionary<Func<string, bool>, Action>
+            {
+                { 
+                    cmd => ActionsListClass.openCommands.Contains(command), () =>
+                    {
+                        bool programOpened = false;
+                        var exePaths = Jarvis.Project.Settings.PathManager.ExePathManagerClass.LoadPathsFromJson();
+                        foreach (var entry in ExeCommandsClass.exeNameProgramms)
+                        {
+                            if (entry.Key.Contains(service))
+                            {
+                                string exeName = entry.Value;
+                                if (exePaths.TryGetValue(exeName, out string exePath))
+                                {
+                                    Process.Start(new ProcessStartInfo(exePath) { UseShellExecute = true });
+                                    log.Info($"[OPENING THE PROGRAM]: opening the program in the path: '{exePath}'.");
+                                    programOpened = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    log.Error($"[OPENING THE PROGRAM]: path '{exeName}' not found.");
+                                }
+                            }
+                        }
+
+                        // Если программа не была открыта, попытаться открыть сайт
+                        if (!programOpened)
+                        {
+                            foreach (var entry in UrlCommandsClass.urlCommands)
+                            {
+                                if (entry.Key.Contains(service))
+                                {
+                                    Process.Start(new ProcessStartInfo(entry.Value) { UseShellExecute = true });
+                                    log.Info($"[OPEN THE SITE]: opening the site by this URL: '{entry.Value}'.");
+                                    return;
+                                }
+                            }
+
+                            log.Error($"[OPEN THE SITE / PROGRAM]: Service or program '{service}' not found.");
+                        }
+
+                        Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
+                    }
+                },
+                { 
+                    cmd => ActionsListClass.closeCommands.Contains(command), () =>
+                    {
+                        foreach (var entry in ExeCommandsClass.exeNameProgramms)
+                        {
+                            if (entry.Key.Contains(service))
+                            {
+                                Process[] processes = Process.GetProcessesByName(entry.Value.Replace(".exe",""));
+                                foreach(Process p in processes)
+                                {
+                                   p.Kill();
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+
         private void OpenService(string service, string command)
         {
-            bool programOpened = false;
+            var commandsHandlers = VoskCommandProcess(service, command);
 
-            // Открытие программ
-            var exePaths = Jarvis.Project.Settings.PathManager.ExePathManagerClass.LoadPathsFromJson();
-            foreach (var entry in ExeCommandsClass.exeNameProgramms)
+            foreach (var handler in commandsHandlers)
             {
-                if (entry.Key.Contains(service))
+                if (handler.Key(command))
                 {
-                    string exeName = entry.Value;
-                    if (exePaths.TryGetValue(exeName, out string exePath))
-                    {
-                        Process.Start(new ProcessStartInfo(exePath) { UseShellExecute = true });
-                        log.Info($"[OPENING THE PROGRAM]: opening the program in the path: '{exePath}'.");
-                        programOpened = true;
-                        break;
-                    }
-                    else
-                    {
-                        log.Error($"[OPENING THE PROGRAM]: path '{exeName}' not found.");
-                    }
+                    handler.Value();
+                    break;
                 }
             }
-
-            // Если программа не была открыта, попытаться открыть сайт
-            if (!programOpened)
-            {
-                foreach (var entry in UrlCommandsClass.urlCommands)
-                {
-                    if (entry.Key.Contains(service))
-                    {
-                        Process.Start(new ProcessStartInfo(entry.Value) { UseShellExecute = true });
-                        log.Info($"[OPEN THE SITE]: opening the site by this URL: '{entry.Value}'.");
-                        return;
-                    }
-                }
-
-                log.Error($"[OPEN THE SITE / PROGRAM]: Service or program '{service}' not found.");
-            }
-            Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
         }
 
         public void Dispose()
         {
+            waveIn.DataAvailable -= WaveIn_DataAvailable;
             waveIn?.StopRecording();
             waveIn?.Dispose();
             vosk?.Dispose();

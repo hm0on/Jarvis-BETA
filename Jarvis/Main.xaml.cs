@@ -151,6 +151,7 @@ namespace Jarvis
 
                 new Project.Settings.ConfigurationManager.SettingsManagerClass(city).Save();
                 SetErrorLabel("Город успешно сохранён!", "#7CFC00");
+                VoiceJarvisClass.JarvisVoiceYes();
             }
             catch (HttpRequestException)
             {

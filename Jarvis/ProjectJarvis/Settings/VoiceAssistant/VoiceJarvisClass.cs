@@ -17,7 +17,7 @@ namespace Jarvis.Project.Settings.VoiceAssistant
             var projectDir = Directory.GetParent(appDir).Parent.Parent.FullName;
             
             // Относительный путь к файлу
-            string relativePath = @"ProjectJarvis\Resources\AssistantVoices\" + NameVoice;
+            string relativePath = @"Jarvis\ProjectJarvis\Resources\AssistantVoices\" + NameVoice;
             // Комбинируем проектную директорию с относительным путем
             var fullPath = Path.Combine(projectDir, relativePath);
 

@@ -24,6 +24,12 @@ namespace Jarvis.Project.Settings.VoiceAssistant
             return fullPath;
         }
 
+        public static void JarvisVoiceComplete()
+        {
+            var complete = new SoundPlayer(MakePathToVoiceFile("Всегда к вашим услугам сэр.wav"));
+            complete.Play();
+        }
+
         public static void JarvisVoiceYes()
         {
             Random rnd = new Random();

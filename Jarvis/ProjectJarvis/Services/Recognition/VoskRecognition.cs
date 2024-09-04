@@ -21,10 +21,24 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
         private WaveInEvent waveIn;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        public enum RecognitionMode
+        {
+            AlwaysListening,  // Режим 1: всегда слушает
+            JarvisListening,  // Режим 2: слушает после слова "джарвис"
+            Disabled          // Режим 3: не слушает вообще
+        }
+
+        private RecognitionMode currentMode;
+        private bool isListeningForCommand = false;
+        private DateTime lastCommandTime;
+        private readonly TimeSpan commandTimeout = TimeSpan.FromSeconds(Properties.Settings.Default.RecognitionWaitTime);
+        private readonly TimeSpan postCommandListeningTime = TimeSpan.FromSeconds(Properties.Settings.Default.RecognitionPostCommandWaitTime); // Время ожидания после выполнения команды
+
         public VoskSpeechRecognition(Dispatcher dispatcher)
         {
             _dispatcher = dispatcher;
             InitializeVosk();
+            currentMode = RecognitionMode.JarvisListening;  // Начальный режим
         }
 
         public void InitializeVosk()
@@ -53,27 +67,66 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
+            if (currentMode == RecognitionMode.Disabled)
+            {
+                return;
+            }
+
             string result = vosk.Recognize(e.Buffer);
             if (!string.IsNullOrEmpty(result))
             {
                 var json = JObject.Parse(result);
-                var text = json["text"].ToString();
+                var text = json["text"].ToString().ToLower();
 
-                if (!string.IsNullOrEmpty(text))
+                if (currentMode == RecognitionMode.JarvisListening && !isListeningForCommand)
                 {
-                    var words = text.Split(' ');
-                    if (words.Length > 1)
+                    if (text.Contains("джарвис"))
                     {
-                        var command = words[0];
-                        var service = words[1];
-
-                        _dispatcher.Invoke(() =>
-                        {
-                            log.Info($"[ACTION RECOGNIZED]: command: '{command}', service: '{service}'");
-                            OpenService(service, command);
-                        });
+                        isListeningForCommand = true;
+                        lastCommandTime = DateTime.Now;
+                        log.Info("[RECOGNITION MODE]: Activated listening mode.");
+                        Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceComplete();
+                        return;
                     }
                 }
+                else if (isListeningForCommand || currentMode == RecognitionMode.AlwaysListening)
+                {
+                    if (isListeningForCommand && (DateTime.Now - lastCommandTime) > commandTimeout)
+                    {
+                        isListeningForCommand = false;
+                        log.Info("[RECOGNITION MODE]: Command timeout, disabling listening mode.");
+                        return;
+                    }
+
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        lastCommandTime = DateTime.Now;
+                        ProcessCommand(text);
+
+                        if (currentMode == RecognitionMode.JarvisListening)
+                        {
+                            // Ждём дополнительные время после выполнения команды
+                            lastCommandTime = DateTime.Now.Add(postCommandListeningTime);
+                            log.Info($"[RECOGNITION MODE]: Waiting for {postCommandListeningTime.TotalSeconds} seconds after command execution.");
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ProcessCommand(string text)
+        {
+            var words = text.Split(' ');
+            if (words.Length > 1)
+            {
+                var command = words[0];
+                var service = words[1];
+
+                _dispatcher.Invoke(() =>
+                {
+                    log.Info($"[ACTION RECOGNIZED]: command: '{command}', service: '{service}'");
+                    OpenService(service, command);
+                });
             }
         }
 
@@ -144,7 +197,6 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
             };
         }
 
-
         private void OpenService(string service, string command)
         {
             var commandsHandlers = VoskCommandProcess(service, command);
@@ -157,6 +209,13 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
                     break;
                 }
             }
+        }
+
+        public void SetRecognitionMode(RecognitionMode mode)
+        {
+            currentMode = mode;
+            isListeningForCommand = false;
+            log.Info($"[RECOGNITION MODE]: Recognition mode switched to {mode}");
         }
 
         public void Dispose()

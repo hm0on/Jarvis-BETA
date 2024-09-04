@@ -72,7 +72,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jarvis Beta|AnyCPU'">
     <OutputPath>bin\Jarvis Beta\</OutputPath>
@@ -248,25 +248,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ProjectJarvis\Views\Pages\SidePanel\CreateCommands\Main.xaml">
+    <Page Include="ProjectJarvis\Views\Pages\SidePanel\CommandsList\CommandsListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProjectJarvis\Views\Pages\SidePanel\Information\Main.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ProjectJarvis\Views\Pages\SidePanel\Information\InformationPage.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProjectJarvis\Views\UserControls\BlockUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProjectJarvis\Views\UserControls\CurrencyUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ProjectJarvis\Views\StylesDictionary\ButtonsDictionary.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProjectJarvis\Views\UserControls\UpdatePointUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ProjectJarvis\Views\StylesDictionary\ColorsDictionary.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectJarvis\Views\StylesDictionary\FontsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectJarvis\Views\UserControls\Information\CurrencyUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectJarvis\Views\UserControls\Information\UpdatePointUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectJarvis\Views\UserControls\Primary\AnswerPointUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -280,20 +296,23 @@
     <Compile Include="ProjectJarvis\Views\Pages\Primary\Basic.xaml.cs">
       <DependentUpon>Basic.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectJarvis\Views\Pages\SidePanel\CreateCommands\Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
+    <Compile Include="ProjectJarvis\Views\Pages\SidePanel\CommandsList\CommandsListPage.xaml.cs">
+      <DependentUpon>CommandsListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectJarvis\Views\Pages\SidePanel\Information\Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
+    <Compile Include="ProjectJarvis\Views\Pages\SidePanel\Information\InformationPage.xaml.cs">
+      <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectJarvis\Views\UserControls\BlockUC.xaml.cs">
-      <DependentUpon>BlockUC.xaml</DependentUpon>
+    <Compile Include="ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectJarvis\Views\UserControls\CurrencyUC.xaml.cs">
+    <Compile Include="ProjectJarvis\Views\UserControls\Information\CurrencyUC.xaml.cs">
       <DependentUpon>CurrencyUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProjectJarvis\Views\UserControls\UpdatePointUC.xaml.cs">
+    <Compile Include="ProjectJarvis\Views\UserControls\Information\UpdatePointUC.xaml.cs">
       <DependentUpon>UpdatePointUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectJarvis\Views\UserControls\Primary\AnswerPointUC.xaml.cs">
+      <DependentUpon>AnswerPointUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

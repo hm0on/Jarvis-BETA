@@ -310,6 +310,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="ProjectJarvis\Resources\AssistantVoices\Всегда к вашим услугам сэр.wav" />
     <Content Include="ProjectJarvis\Resources\AssistantVoices\Да сэр%28второй%29.wav" />
     <Content Include="ProjectJarvis\Resources\AssistantVoices\Да сэр.wav" />
     <Content Include="ProjectJarvis\Resources\AssistantVoices\Есть.wav" />

@@ -16,6 +16,13 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
 {
     public class VoskSpeechRecognition : IDisposable
     {
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        private const int SW_MINIMIZE = 6;
+        private const int SW_RESTORE = 9;
+        private const int SW_MAXIMIZE = 3;
+        
         private readonly Dispatcher _dispatcher;
         private VoskWrapper vosk;
         private WaveInEvent waveIn;
@@ -38,7 +45,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
         {
             _dispatcher = dispatcher;
             InitializeVosk();
-            currentMode = RecognitionMode.JarvisListening;  // Начальный режим
+            currentMode = RecognitionMode.AlwaysListening;  // Начальный режим
         }
 
         public void InitializeVosk()
@@ -116,88 +123,181 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
 
         private void ProcessCommand(string text)
         {
-            var words = text.Split(' ');
-            if (words.Length > 1)
-            {
-                var command = words[0];
-                var service = words[1];
+            string service = null;
+            string command = null;
 
+            // Проход по каждому сервису и проверка его наличия в тексте
+            foreach (var entry in ExeCommandsClass.exeNameProgramms)
+            {
+                foreach (var srv in entry.Key) // Пробегаемся по каждому названию сервиса в HashSet
+                {
+                    int serviceIndex = text.IndexOf(srv, StringComparison.OrdinalIgnoreCase);
+                    if (serviceIndex >= 0)
+                    {
+                        service = srv; // Название сервиса
+                        command = text.Substring(0, serviceIndex).Trim(); // Все до названия сервиса — это команда
+                        break;
+                    }
+                }
+                if (service != null)
+                {
+                    break; // Прерываем внешний цикл, если сервис найден
+                }
+            }
+
+            if (service != null && !string.IsNullOrEmpty(command))
+            {
                 _dispatcher.Invoke(() =>
                 {
                     log.Info($"[ACTION RECOGNIZED]: command: '{command}', service: '{service}'");
-                    OpenService(service, command);
+                    RunService(service, command); // Выполняем команду для найденного сервиса
                 });
+            }
+            else
+            {
+                log.Error("[PROCESS COMMAND]: Не удалось распознать команду или сервис.");
             }
         }
 
+        private void OpenProgram(string service)
+        {
+            bool programOpened = false;
+            var exePaths = Jarvis.Project.Settings.PathManager.ExePathManagerClass.LoadPathsFromJson();
+
+            foreach (var entry in ExeCommandsClass.exeNameProgramms)
+            {
+                if (entry.Key.Contains(service))
+                {
+                    string exeName = entry.Value;
+                    if (exePaths.TryGetValue(exeName, out string exePath))
+                    {
+                        Process.Start(new ProcessStartInfo(exePath) { UseShellExecute = true });
+                        log.Info($"[OPENING THE PROGRAM]: opening the program in the path: '{exePath}'.");
+                        programOpened = true;
+                        break;
+                    }
+                    else
+                    {
+                        log.Error($"[OPENING THE PROGRAM]: path '{exeName}' not found.");
+                    }
+                }
+            }
+
+            // Если программа не была открыта, попытаться открыть сайт
+            if (!programOpened)
+            {
+                foreach (var entry in UrlCommandsClass.urlCommands)
+                {
+                    if (entry.Key.Contains(service))
+                    {
+                        Process.Start(new ProcessStartInfo(entry.Value) { UseShellExecute = true });
+                        log.Info($"[OPEN THE SITE]: opening the site by this URL: '{entry.Value}'.");
+                        return;
+                    }
+                }
+
+                log.Error($"[OPEN THE SITE / PROGRAM]: Service or program '{service}' not found.");
+            }
+
+            Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
+        }
+
+        private void CloseProgram(string service)
+        {
+            foreach (var entry in ExeCommandsClass.exeNameProgramms)
+            {
+                if (entry.Key.Contains(service))
+                {
+                    Process[] processes = Process.GetProcessesByName(entry.Value.Replace(".exe", ""));
+                    foreach (Process p in processes)
+                    {
+                        p.Kill();
+                    }
+
+                    log.Info($"[CLOSING THE PROGRAM]: Program '{entry.Value}' has been closed.");
+                }
+            }
+
+            Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
+        }
+        
+        private void MinimizeProgram(string service)
+        {
+            foreach (var entry in ExeCommandsClass.exeNameProgramms)
+            {
+                if (entry.Key.Contains(service))
+                {
+                    Process[] processes = Process.GetProcessesByName(entry.Value.Replace(".exe", ""));
+                    foreach (Process p in processes)
+                    {
+                        IntPtr handle = p.MainWindowHandle;
+                        if (handle != IntPtr.Zero)
+                        {
+                            ShowWindow(handle, SW_MINIMIZE);
+                            log.Info($"[MINIMIZING THE PROGRAM]: Program '{entry.Value}' has been minimized.");
+                        }
+                    }
+                }
+            }
+            Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
+        }
+        
+        private void RestoreProgram(string service)
+        {
+            foreach (var entry in ExeCommandsClass.exeNameProgramms)
+            {
+                if (entry.Key.Contains(service))
+                {
+                    Process[] processes = Process.GetProcessesByName(entry.Value.Replace(".exe", ""));
+                    foreach (Process p in processes)
+                    {
+                        IntPtr handle = p.MainWindowHandle;
+                        if (handle != IntPtr.Zero)
+                        {
+                            ShowWindow(handle, SW_RESTORE);
+                            log.Info($"[MAXIMIZING THE PROGRAM]: Program '{entry.Value}' has been restored.");
+                        }
+                    }
+                }
+            }
+            Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
+        }
+        
+        private void MaximizeProgram(string service)
+        {
+            foreach (var entry in ExeCommandsClass.exeNameProgramms)
+            {
+                if (entry.Key.Contains(service))
+                {
+                    Process[] processes = Process.GetProcessesByName(entry.Value.Replace(".exe", ""));
+                    foreach (Process p in processes)
+                    {
+                        IntPtr handle = p.MainWindowHandle;
+                        if (handle != IntPtr.Zero)
+                        {
+                            ShowWindow(handle, SW_MAXIMIZE);
+                            log.Info($"[MAXIMIZING THE PROGRAM]: Program '{entry.Value}' has been maximized.");
+                        }
+                    }
+                }
+            }
+            Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
+        }
+        
         private Dictionary<Func<string, bool>, Action> VoskCommandProcess(string service, string command)
         {
             return new Dictionary<Func<string, bool>, Action>
             {
-                { 
-                    cmd => ActionsListClass.openCommands.Contains(command), () =>
-                    {
-                        bool programOpened = false;
-                        var exePaths = Jarvis.Project.Settings.PathManager.ExePathManagerClass.LoadPathsFromJson();
-                        foreach (var entry in ExeCommandsClass.exeNameProgramms)
-                        {
-                            if (entry.Key.Contains(service))
-                            {
-                                string exeName = entry.Value;
-                                if (exePaths.TryGetValue(exeName, out string exePath))
-                                {
-                                    Process.Start(new ProcessStartInfo(exePath) { UseShellExecute = true });
-                                    log.Info($"[OPENING THE PROGRAM]: opening the program in the path: '{exePath}'.");
-                                    programOpened = true;
-                                    break;
-                                }
-                                else
-                                {
-                                    log.Error($"[OPENING THE PROGRAM]: path '{exeName}' not found.");
-                                }
-                            }
-                        }
-
-                        // Если программа не была открыта, попытаться открыть сайт
-                        if (!programOpened)
-                        {
-                            foreach (var entry in UrlCommandsClass.urlCommands)
-                            {
-                                if (entry.Key.Contains(service))
-                                {
-                                    Process.Start(new ProcessStartInfo(entry.Value) { UseShellExecute = true });
-                                    log.Info($"[OPEN THE SITE]: opening the site by this URL: '{entry.Value}'.");
-                                    return;
-                                }
-                            }
-
-                            log.Error($"[OPEN THE SITE / PROGRAM]: Service or program '{service}' not found.");
-                        }
-
-                        Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
-                    }
-                },
-                { 
-                    cmd => ActionsListClass.closeCommands.Contains(command), () =>
-                    {
-                        foreach (var entry in ExeCommandsClass.exeNameProgramms)
-                        {
-                            if (entry.Key.Contains(service))
-                            {
-                                Process[] processes = Process.GetProcessesByName(entry.Value.Replace(".exe",""));
-                                foreach(Process p in processes)
-                                {
-                                   p.Kill();
-                                }
-                            }
-                        }
-                        Settings.VoiceAssistant.VoiceJarvisClass.JarvisVoiceYes();
-                    }
-                }
+                { cmd => ActionsListClass.openCommands.Contains(command), () => OpenProgram(service) }, // открытие программ
+                { cmd => ActionsListClass.closeCommands.Contains(command), () => CloseProgram(service) }, // закрытие
+                { cmd => ActionsListClass.minimizeCommands.Contains(command), () => MinimizeProgram(service) }, // сворачивание
+                { cmd => ActionsListClass.upCommands.Contains(command), () => RestoreProgram(service) }, // разворачивание
+                { cmd => ActionsListClass.maximizeCommands.Contains(command), () => MaximizeProgram(service) } // на весь экран
             };
         }
 
-        private void OpenService(string service, string command)
+
+        private void RunService(string service, string command)
         {
             var commandsHandlers = VoskCommandProcess(service, command);
 

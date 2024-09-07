@@ -23,19 +23,13 @@ public static class ActionsListClass
         // Действия на развертывание
         public static readonly HashSet<string> upCommands = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "разверни", "развернуть"
+            "разверни", "развернуть", "развернуться"
         };
 
         // Действия на развертывание на весь экран
         public static readonly HashSet<string> maximizeCommands = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "навесьэкран", "развернинавесьэкран", "откройнавесьэкран", "максимализируй"
-        };
-
-        // Действия на стандартное развертывание
-        public static readonly HashSet<string> standartsizeCommands = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        {
-            "стандартныйвид", "стандартизируй", "верни", "вернивнормальноеположение"
+            "на весь экран", "разверни на весь экран", "открой на весь экран", "максимализируй", "развернуть на весь экран"
         };
         
         // Действия на переключение на дргой объект

@@ -19,7 +19,7 @@ public class ExePathManagerClass
     {
         try
         {
-            string filePath = @"C:\Program Files\Jarvis\Resources\exePaths.json";
+            string filePath = Properties.Settings.Default.ExePathsJsonPath;
             if (File.Exists(filePath))
             {
                 string jsonString = File.ReadAllText(filePath);
@@ -32,7 +32,7 @@ public class ExePathManagerClass
         }
         catch (Exception ex)
         {
-            log.Error($"An error occurred while loading paths from JSON: '{ex.Message}'");
+            log.Error($"[EXE PATH MANAGER]: An error occurred while loading paths from JSON: '{ex.Message}'");
         }
 
         return new Dictionary<string, string>();
@@ -58,11 +58,11 @@ public class ExePathManagerClass
             string filePath = Path.Combine(directoryPath, "exePaths.json");
             File.WriteAllText(filePath, jsonString);
 
-            log.Info($"Paths to exe files have been saved to '{filePath}'");
+            log.Info($"[EXE PATH MANAGER]: Paths to exe files have been saved to '{filePath}'");
         }
         catch (Exception ex)
         {
-            log.Error($"An error occurred while saving paths to JSON: '{ex.Message}'");
+            log.Error($"[EXE PATH MANAGER]: An error occurred while saving paths to JSON: '{ex.Message}'");
         }
     }
 
@@ -81,7 +81,7 @@ public class ExePathManagerClass
         }
         catch (Exception ex)
         {
-            log.Error($"An error occurred while searching for '{exeName}': '{ex.Message}'");
+            log.Error($"[EXE PATH MANAGER]: Serching path`s: An error occurred while searching for '{exeName}': '{ex.Message}'");
         }
 
         return null;
@@ -106,7 +106,7 @@ public class ExePathManagerClass
                 string path = SearchDirectory(subdirectory, exeName);
                 if (!string.IsNullOrEmpty(path))
                 {
-                    log.Info($"Found '{exeName}' in '{path}'");
+                    log.Info($"[EXE PATH MANAGER]: Searching path`s. Found '{exeName}' in '{path}'");
                     return path;
                 }
             }
@@ -117,7 +117,7 @@ public class ExePathManagerClass
         }
         catch (Exception ex)
         {
-            log.Error($"An error occurred while searching in directory '{directory}': '{ex.Message}'");
+            log.Error($"[EXE PATH MANAGER]: Searching path`s: An error occurred while searching in directory '{directory}': '{ex.Message}'");
         }
 
         return null;
@@ -137,7 +137,7 @@ public class ExePathManagerClass
             }
             else
             {
-                log.Warn($"Path for the program {kvp.Value} not found.");
+                log.Warn($"[EXE PATH MANAGER]: Searching path`s: Path for the program {kvp.Value} not found.");
             }
         });
 

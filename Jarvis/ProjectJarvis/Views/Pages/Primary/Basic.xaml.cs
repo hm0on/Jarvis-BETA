@@ -10,6 +10,7 @@ using NAudio.Wave;
 using System.Windows;
 using Jarvis.Project.Settings.ConfigurationManager;
 using System.Xml.Linq;
+using log4net;
 
 namespace Jarvis.Project.Views.Pages.Primary;
 
@@ -27,6 +28,7 @@ public partial class Basic : Page
     private Random random;
     private bool isQuietMode = false;
     private double quietModeScaleFactor = 0.09;
+    private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     public Basic()
     {
@@ -189,7 +191,7 @@ public partial class Basic : Page
                 maxVolume = volume;
         }
 
-        Dispatcher.Invoke(() => AdjustCircleScales(maxVolume));
+        Dispatcher.BeginInvoke(() => AdjustCircleScales(maxVolume));
     }
 
     private void AdjustCircleScales(float volume)

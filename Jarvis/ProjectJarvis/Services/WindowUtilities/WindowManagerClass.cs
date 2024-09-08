@@ -3,11 +3,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Automation;
 using System.Runtime.InteropServices;
+using log4net;
 
 namespace Jarvis.Project.Services.WindowUtilities
 {
     public static class WindowManagerClass
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private const int SW_MINIMIZE = 6;
         private const int SW_MAXIMIZE = 3;
         private const int SW_RESTORE = 9;
@@ -26,12 +28,12 @@ namespace Jarvis.Project.Services.WindowUtilities
                 foreach (var process in processes)
                 {
                     process.Kill();
-                    Console.WriteLine("Process {0} killed", process.ProcessName);
+                    log.Info("[WINDOW MANAGER]: Process {0} killed, process: " + process.ProcessName);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error closing window: " + ex.Message);
+                log.Error("[WINDOW MANAGER]: Error with closing window: " + ex.Message);
             }
         }
 
@@ -47,7 +49,7 @@ namespace Jarvis.Project.Services.WindowUtilities
                     if (window != null)
                     {
                         ShowWindow(new IntPtr(window.Current.NativeWindowHandle), SW_MINIMIZE);
-                        Console.WriteLine("Minimized window for process: " + mainProcess.ProcessName);
+                        log.Info("[WINDOW MANAGER]: Minimized window for process: " + mainProcess.ProcessName);
                     }
                     else
                     {

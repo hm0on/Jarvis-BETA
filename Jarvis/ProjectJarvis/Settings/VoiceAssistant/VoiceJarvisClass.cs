@@ -1,11 +1,34 @@
 ﻿using System;
+using System.IO;
 using System.Media;
+using System.Reflection;
 using Jarvis.Project.Views.Pages;
+using Jarvis.Properties;
 
 namespace Jarvis.Project.Settings.VoiceAssistant
 {
     class VoiceJarvisClass
     {
+        private static string MakePathToVoiceFile(string NameVoice)
+        {
+            // Получаем текущую директорию исполняемого файла
+            var appDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            // Поднимаемся на два уровня вверх от текущей директории
+            var projectDir = Directory.GetParent(appDir).Parent.Parent.FullName;
+            
+            // Относительный путь к файлу
+            string relativePath = @"ProjectJarvis\Resources\AssistantVoices\" + NameVoice;
+            // Комбинируем проектную директорию с относительным путем
+            var fullPath = Path.Combine(projectDir, relativePath);
+
+            return fullPath;
+        }
+
+        public static void JarvisVoiceComplete()
+        {
+            var complete = new SoundPlayer(MakePathToVoiceFile("Всегда к вашим услугам сэр.wav"));
+            complete.Play();
+        }
 
         public static void JarvisVoiceYes()
         {
@@ -15,28 +38,28 @@ namespace Jarvis.Project.Settings.VoiceAssistant
             switch (Jarvis_Voice_answer)
             {
                 case 1:
-                    //Basic.UpdateJarvisPhrazHistory("Есть!");
-                    var yes = new SoundPlayer(@"C:\Program Files\Jarvis\JarvisVoice\Есть.wav");
+                    //Basic.UpdateJarvisPhrazHistory("Есть!"); <-- временно выключено
+                    var yes = new SoundPlayer(MakePathToVoiceFile("Есть.wav"));
                     yes.Play();
                     break;
                 case 2:
                     //Basic.UpdateJarvisPhrazHistory("Да, сэр!");
-                    var yessir2 = new SoundPlayer(@"C:\Program Files\Jarvis\JarvisVoice\Да сэр(второй).wav");
+                    var yessir2 = new SoundPlayer(MakePathToVoiceFile("Да сэр(второй).wav"));
                     yessir2.Play();
                     break;
                 case 3:
                     //Basic.UpdateJarvisPhrazHistory("Да, сэр!");
-                    var yessir = new SoundPlayer(@"C:\Program Files\Jarvis\JarvisVoice\Да сэр.wav");
+                    var yessir = new SoundPlayer(MakePathToVoiceFile("Да сэр.wav"));
                     yessir.Play();
                     break;
                 case 4:
                     //Basic.UpdateJarvisPhrazHistory("Запрос выполнен, сэр!");
-                    var comletesir = new SoundPlayer(@"C:\Program Files\Jarvis\JarvisVoice\Запрос выполнен сэр.wav");
+                    var comletesir = new SoundPlayer(MakePathToVoiceFile("Запрос выполнен сэр.wav"));
                     comletesir.Play();
                     break;
                 case 5:
                     //Basic.UpdateJarvisPhrazHistory("Загружаю, сэр!");
-                    var loadingsir = new SoundPlayer(@"C:\Program Files\Jarvis\JarvisVoice\Загружаю сэр.wav");
+                    var loadingsir = new SoundPlayer(MakePathToVoiceFile("Загружаю сэр.wav"));
                     loadingsir.Play();
                     break;
 

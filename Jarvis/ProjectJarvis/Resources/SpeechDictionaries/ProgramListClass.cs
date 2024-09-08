@@ -11,7 +11,7 @@ public static class ProgramListClass
     
     public static readonly HashSet<string> yandexCommands = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
-        "yandex", "яндекс", "яндекц", "яндэкс", "яндексбраузер", "yandexbrowser"
+        "yandex", "яндекс", "яндекц", "яндэкс", "яндекс браузер", "yandex browser"
     };
 
     public static readonly HashSet<string> googleCommands = new HashSet<string>(StringComparer.OrdinalIgnoreCase)

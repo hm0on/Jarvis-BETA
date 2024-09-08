@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
+using log4net;
 
 namespace Jarvis.Project.Settings.AntiPiracy
 {
     public static class AntiPiracyClass
     {
+        
         static async Task Main(string[] args)
         {
             await GetHwid_MBox_Y();
@@ -23,6 +25,7 @@ namespace Jarvis.Project.Settings.AntiPiracy
 
         public static bool IsFirstRun()
         {
+            
             try
             {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, true))

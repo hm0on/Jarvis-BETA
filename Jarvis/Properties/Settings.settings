@@ -1,7 +1,30 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
   <Profiles>
     <Profile Name="(Default)" />
   </Profiles>
-  <Settings />
+  <Settings>
+    <Setting Name="ExePathsJsonPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\Jarvis\Resources\exePaths.json</Value>
+    </Setting>
+    <Setting Name="relativePathVoskModel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ProjectJarvis\Resources\VoskModels\vosk-model-small-ru-0.22</Value>
+    </Setting>
+    <Setting Name="AssemblyDllPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll</Value>
+    </Setting>
+    <Setting Name="APIkeyWeather" Type="System.String" Scope="User">
+      <Value Profile="(Default)">e327b05bf5e93f0560363f8bc007f7e2</Value>
+    </Setting>
+    <Setting Name="AntiPiracyStatus" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RecognitionWaitTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="RecognitionPostCommandWaitTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
+

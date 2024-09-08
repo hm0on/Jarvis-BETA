@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,28 +10,18 @@ using System.Reflection;
 using System.Windows.Media;
 using log4net;
 using Jarvis.Project.Settings.ConfigurationManager;
-using Jarvis.Project.Services.SpeechRecognition;
+using Jarvis.Project.Services.VoskSpeechRecognition;
 using Jarvis.Project.Services.HttpClientFolder;
-using Jarvis.ProjectJarvis.CommandsFolder;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Jarvis.Project.Settings.PathManager;
 using Jarvis.Project.Settings.AntiPiracy;
-using Jarvis.Project.Settings.SystemUtilities;
 using Jarvis.Project.Settings.VoiceAssistant;
 using Jarvis.Project.Services.WindowUtilities;
-using System.Speech.Recognition;
 
 namespace Jarvis
 {
     public partial class MainWindow : Window
     {
-        private readonly PowerManagerClass _power = new PowerManagerClass();
-        private readonly RecycleBinManagerClass _shell32 = new RecycleBinManagerClass();
-        private readonly InputSimulator _simulator = new InputSimulator();
-
-        private readonly SpeechRecognitionEngine recognizer;
-        private readonly SpeechRecognitionClass speechRecognizer;
+        private readonly VoskSpeechRecognition voskRecognizer;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static bool ON_vcom = true;
 
@@ -49,28 +38,28 @@ namespace Jarvis
             {
                 InitializeComponent();
 
-                speechRecognizer = new SpeechRecognitionClass(Dispatcher);
-                Loaded += MainWindow_Loaded;
+                voskRecognizer = new VoskSpeechRecognition(Dispatcher);
 
-                PreloadAccessibilityAssembly();
+                ContentRendered += MainWindow_Loaded;
 
                 Thread.Sleep(1000);
 
                 log4net.Config.XmlConfigurator.Configure();
-                log.Info("All assemblies have been loaded");
+                log.Info("[SYSTEM]: All assemblies have been loaded");
 
-                speechRecognizer.InitializeSpeechRecognition();
 
                 SettingsManagerClass settingsManager = new SettingsManagerClass();
                 string city = settingsManager.Load();
 
-                log.Info("User entered city: " + city);
+                log.Info("[WEATHER Parser]: User entered city: " + city);
 
                 _ = WheaterClass.GetWeatherAsync(city);
+
+                
             }
             catch (Exception ex)
             {
-                log.Error($"An error occurred in Jarvis when loading assemblies: {ex.Message}");
+                log.Error($"[SYSTEM]: An error occurred in Jarvis when loading assemblies: {ex.Message}");
             }
 
             exePaths = ExePathManagerClass.LoadPathsFromJson();
@@ -85,8 +74,8 @@ namespace Jarvis
         {
             try
             {
-                Assembly.LoadFrom(@"C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll");
-                log.Info("Accessibility.dll is loaded.");
+                string AssemblyDllPath = Properties.Settings.Default.AssemblyDllPath;
+                Assembly.LoadFrom(AssemblyDllPath);
             }
             catch
             {
@@ -97,7 +86,7 @@ namespace Jarvis
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            recognizer?.Dispose();
+            voskRecognizer?.Dispose();
         }
 
         public void CloseApplication(string processName)
@@ -108,7 +97,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"Error when closing the process: {processName}. Error: {ex.Message}");
+                log.Error($"[SYSTEM]: Error when closing the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -121,7 +110,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"Error when minimizing the process: {processName}. Error: {ex.Message}");
+                log.Error($"[SYSTEM]: Error when minimizing the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -134,7 +123,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"Error when restoring the process: {processName}. Error: {ex.Message}");
+                log.Error($"[SYSTEM]: Error when restoring the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -154,6 +143,7 @@ namespace Jarvis
 
                 new Project.Settings.ConfigurationManager.SettingsManagerClass(city).Save();
                 SetErrorLabel("Город успешно сохранён!", "#7CFC00");
+                VoiceJarvisClass.JarvisVoiceYes();
             }
             catch (HttpRequestException)
             {
@@ -192,29 +182,48 @@ namespace Jarvis
             ChangeGridButton(SettingsGridButton);
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void MainWindow_Loaded(object sender, EventArgs e)
         {
-            if (AntiPiracyClass.IsFirstRun())
+            bool AntiPiracyStatus = Properties.Settings.Default.AntiPiracyStatus;
+            if (AntiPiracyClass.IsFirstRun()) 
             {
-                await AntiPiracyClass.GetHwid_MBox_Y();
-                log.Info("First run check: YES");
+                if (AntiPiracyStatus == true)
+                {
+                    await AntiPiracyClass.GetHwid_MBox_Y();
+                    log.Info("[ANTI PIRACY]: First run check: YES");
+                    log.Info("[ANTI PIRACY]: Mode: ON");
+                }
+                else
+                {
+                    log.Info("[ANTI PIRACY]: First run check: YES");
+                    log.Warn("[ANTI PIRACY]: Mode: OFF");
+                }
             }
             else
             {
-                await AntiPiracyClass.GetHwid_MBox_N();
-                log.Info("First run check: NO");
+                if (AntiPiracyStatus == true)
+                {
+                    await AntiPiracyClass.GetHwid_MBox_N();
+                    log.Info("[ANTI PIRACY]: First run check: NO");
+                    log.Info("[ANTI PIRACY]: Mode: ON");
+                }
+                else
+                {
+                    log.Info("[ANTI PIRACY]: First run check: YES");
+                    log.Warn("[ANTI PIRACY]: Mode: OFF");
+                }
             }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Program shutdown: button is pressed");
+            log.Info("[SYSTEM]: Program shutdown: close button is pressed");
             Application.Current.Shutdown();
         }
 
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Minimize the program: button is pressed");
+            log.Info("[SYSTEM]: Minimize the program: minimize button is pressed");
             this.WindowState = WindowState.Minimized;
         }
 

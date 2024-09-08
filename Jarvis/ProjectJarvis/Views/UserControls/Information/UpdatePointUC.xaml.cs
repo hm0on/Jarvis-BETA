@@ -1,16 +1,15 @@
 ﻿using System.Windows.Controls;
 
-namespace Jarvis.ProjectJarvis.Views.UserControls
+namespace Jarvis.ProjectJarvis.Views.UserControls.Information
 {
-    public partial class BlockUC : UserControl
+    public partial class UpdatePointUC : UserControl
     {
-        public BlockUC()
+        public UpdatePointUC()
         {
             InitializeComponent();
             this.DataContext = this;
         }
 
         public string Title { get; set; }
-        public string SubTitle { get; set; }
     }
 }

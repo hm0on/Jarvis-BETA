@@ -45,7 +45,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
         {
             _dispatcher = dispatcher;
             InitializeVosk();
-            currentMode = RecognitionMode.AlwaysListening;  // Начальный режим
+            currentMode = RecognitionMode.JarvisListening;  // Начальный режим
         }
 
         public void InitializeVosk()

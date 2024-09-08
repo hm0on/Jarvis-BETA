@@ -227,7 +227,7 @@ namespace Jarvis
             this.WindowState = WindowState.Minimized;
         }
 
-        private void Background_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => this.DragMove();
+        private void Header_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => this.DragMove();
 
         private void Button_ON_Click(object sender, RoutedEventArgs e)
         {

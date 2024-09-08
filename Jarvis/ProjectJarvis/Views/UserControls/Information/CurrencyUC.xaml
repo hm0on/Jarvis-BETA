@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Jarvis.ProjectJarvis.Views.UserControls.Information.CurrencyUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="295" Height="34">
+
+    <UserControl.Content>
+        <Grid>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Margin="0,0,0,2" Text="{Binding Title}" Foreground="{DynamicResource Color.Gray}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="Medium" FontSize="13"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Exchange}" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="Medium" FontSize="13"/>
+                    <TextBlock Text=" RUB" Foreground="{DynamicResource Color.Gray}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="Medium" FontSize="13"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Grid HorizontalAlignment="Center" Margin="0,0,0,5">
+                    <Path Data="M15 18H21V12" Stroke="{DynamicResource Color.Red}" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"/>
+                    <Path Data="M3 7L7.44305 12.2228C7.75365 12.5879 7.90894 12.7704 8.10137 12.8623C8.27101 12.9434 8.46005 12.9749 8.64681 12.9534C8.85867 12.9291 9.06487 12.8069 9.47727 12.5626L12.3026 10.8887C12.688 10.6604 12.8807 10.5462 13.0808 10.5188C13.2574 10.4946 13.4372 10.518 13.6017 10.5866C13.7881 10.6644 13.9451 10.8241 14.2591 11.1435L21 18" Stroke="{DynamicResource Color.Red}" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"/>
+                </Grid>
+                <Border Width="32" Height="6" Background="{DynamicResource Color.Red}" CornerRadius="3"/>
+            </StackPanel>
+        </Grid>
+    </UserControl.Content>
+</UserControl>

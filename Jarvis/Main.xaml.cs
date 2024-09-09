@@ -170,16 +170,36 @@ namespace Jarvis
 
         private void ButtonMain_OnClick(object sender, RoutedEventArgs e)
         {
-            MainGrid.Visibility = Visibility.Visible;
-            SettingsGrid.Visibility = Visibility.Hidden;
-            ChangeGridButton(MainGridButton);
+            MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\Primary\Basic.xaml", UriKind.Relative));
+            // MainGrid.Visibility = Visibility.Visible;
+            // SettingsGrid.Visibility = Visibility.Hidden;
+            // ChangeGridButton(MainGridButton);
+        }
+
+        private void ButtonCommandsList_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\SidePanel\CommandsList\CommandsListPage.xaml", UriKind.Relative));
+        }
+
+        private void ButtonInformation_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\SidePanel\Information\InformationPage.xaml", UriKind.Relative));
         }
 
         private void ButtonSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            MainGrid.Visibility = Visibility.Hidden;
-            SettingsGrid.Visibility = Visibility.Visible;
-            ChangeGridButton(SettingsGridButton);
+            MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\SidePanel\Settings\SettingsPage.xaml", UriKind.Relative));
+            // MainGrid.Visibility = Visibility.Hidden;
+            // SettingsGrid.Visibility = Visibility.Visible;
+            // ChangeGridButton(SettingsGridButton);
+        }
+
+        private void ButtonProfile_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml", UriKind.Relative));
+            // MainGrid.Visibility = Visibility.Hidden;
+            // ProfileGrid.Visibility = Visibility.Visible;
+            // ChangeGridButton(ProfileGridButton);
         }
 
         private async void MainWindow_Loaded(object sender, EventArgs e)

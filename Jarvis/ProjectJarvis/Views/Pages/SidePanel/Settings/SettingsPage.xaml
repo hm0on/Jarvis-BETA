@@ -4,7 +4,7 @@
       Title="Jarvis" Width="965" Height="700">
 
     <Page.Content>
-        <Grid>
+        <Grid x:Name="SettingsGrid">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="15,20,15,20">
 
             </StackPanel>

@@ -16,6 +16,7 @@ namespace Jarvis.Project.Views.Pages.Primary;
 
 public partial class Basic : Page
 {
+    public static Basic Instance { get; private set; }
     private const string ApiKey = "e327b05bf5e93f0560363f8bc007f7e2";
     private readonly HttpClient http = new HttpClient();
     private WaveInEvent waveIn;
@@ -36,6 +37,71 @@ public partial class Basic : Page
         InitializeMicrophone();
         InitializeWaveAnimation();
         random = new Random();
+        Instance = this;
+    }
+    
+    // Метод для добавления ответа Джарвиса
+    public void AddJarvisAnswer(string answer)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            var answerContainer = new StackPanel
+                { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 2.5, 0, 2.5) };
+
+            // Добавляем фиолетовый кружок
+            var purpleCircle = new Ellipse
+            {
+                Width = 10,
+                Height = 10,
+                Fill = new SolidColorBrush(Color.FromRgb(68, 102, 255)), // Фиолетовый цвет
+                Margin = new Thickness(0, 0, 5, 0)
+            };
+            answerContainer.Children.Add(purpleCircle);
+
+            // Добавляем текст ответа
+            var answerTextBlock = new TextBlock
+            {
+                Text = answer,
+                Foreground = Brushes.White,
+                FontSize = 16
+            };
+            answerContainer.Children.Add(answerTextBlock);
+
+            // Добавляем контейнер в StackPanel
+            answerStackPanel.Children.Add(answerContainer);
+        });
+    }
+
+    // Метод для добавления запроса пользователя
+    public void AddUserRequest(string request)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            var requestContainer = new StackPanel
+                { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 2.5, 0, 2.5) };
+
+            // Добавляем белый кружок
+            var whiteCircle = new Ellipse
+            {
+                Width = 10,
+                Height = 10,
+                Fill = Brushes.White,
+                Margin = new Thickness(0, 0, 5, 0)
+            };
+            requestContainer.Children.Add(whiteCircle);
+
+            // Добавляем текст запроса
+            var requestTextBlock = new TextBlock
+            {
+                Text = request,
+                Foreground = Brushes.White,
+                FontSize = 16
+            };
+            requestContainer.Children.Add(requestTextBlock);
+
+            // Добавляем контейнер в StackPanel
+            answerStackPanel.Children.Add(requestContainer);
+        });
     }
 
     private void InitializeMicrophone()

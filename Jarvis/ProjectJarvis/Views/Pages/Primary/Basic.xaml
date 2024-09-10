@@ -11,10 +11,11 @@
                     <TextBlock Text="ОТВЕТЫ JARVIS" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="20"/>
                     <Grid Width="511" Height="608" Margin="0,10,0,0">
                         <Border Background="{DynamicResource Color.LightGray}" Opacity="0.05" CornerRadius="15"/>
-                        <StackPanel Orientation="Vertical" Margin="20,20,20,20">
-                            <uc:AnswerPointUC Message="Запрос пользователя" Color="{StaticResource Color.White}" Margin="0,0,0,2.5"/>
-                            <uc:AnswerPointUC Message="Ответ на запрос пользователя" Color="{StaticResource Color.Turquoise}" Margin="0,2.5,0,0"/>
-                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="20,20,20,20">
+                            <StackPanel x:Name="answerStackPanel" Orientation="Vertical">
+                                <!-- Здесь будут добавляться ответы -->
+                            </StackPanel>
+                        </ScrollViewer>
                     </Grid>
                 </StackPanel>
             </Grid>

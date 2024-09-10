@@ -347,7 +347,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="ProjectJarvis\Assets\Fonts\SegoeUIVF.ttf" />
-    <None Include="Jarvis_TemporaryKey.pfx" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -11,6 +11,7 @@ using Jarvis.ProjectJarvis.CommandsFolder;
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
+using Jarvis.Project.Views.Pages.Primary;
 
 namespace Jarvis.Project.Services.VoskSpeechRecognition
 {
@@ -150,6 +151,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
                 _dispatcher.Invoke(() =>
                 {
                     log.Info($"[ACTION RECOGNIZED]: command: '{command}', service: '{service}'");
+                    Basic.Instance.AddUserRequest(text);
                     RunService(service, command); // Выполняем команду для найденного сервиса
                 });
             }

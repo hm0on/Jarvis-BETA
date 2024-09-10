@@ -4,9 +4,13 @@
       Title="Jarvis" Width="965" Height="700">
 
     <Page.Content>
-        <Grid x:Name="ProfileGrid">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="15,20,15,20">
-
+        <Grid x:Name="ProfileGrid" ColumnDefinitions="">
+            <StackPanel Margin="15,20,15,20">
+                <Label Content="Добро пожаловать" HorizontalAlignment="Center"/>
+                    <Label Content="Ваш логин:" FontSize="16" HorizontalAlignment="Center"/>
+                    <TextBox Width="200" FontSize="16" HorizontalAlignment="Center"/>
+                    <Label Content="Ваш пароль:" FontSize="16" HorizontalAlignment="Center"/>
+                    <TextBox Width="200" FontSize="16" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </Page.Content>

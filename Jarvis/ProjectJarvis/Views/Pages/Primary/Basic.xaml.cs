@@ -46,7 +46,10 @@ public partial class Basic : Page
         Dispatcher.Invoke(() =>
         {
             var answerContainer = new StackPanel
-                { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 2.5, 0, 2.5) };
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(0, 10, 0, 10) // Увеличенные вертикальные отступы
+            };
 
             // Добавляем фиолетовый кружок
             var purpleCircle = new Ellipse
@@ -77,18 +80,9 @@ public partial class Basic : Page
     {
         Dispatcher.Invoke(() =>
         {
+            // Создаем контейнер для запроса с выравниванием справа
             var requestContainer = new StackPanel
-                { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 2.5, 0, 2.5) };
-
-            // Добавляем белый кружок
-            var whiteCircle = new Ellipse
-            {
-                Width = 10,
-                Height = 10,
-                Fill = Brushes.White,
-                Margin = new Thickness(0, 0, 5, 0)
-            };
-            requestContainer.Children.Add(whiteCircle);
+                { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 10, 0, 10), HorizontalAlignment = HorizontalAlignment.Right };
 
             // Добавляем текст запроса
             var requestTextBlock = new TextBlock
@@ -98,6 +92,16 @@ public partial class Basic : Page
                 FontSize = 16
             };
             requestContainer.Children.Add(requestTextBlock);
+
+            // Добавляем белый кружок
+            var whiteCircle = new Ellipse
+            {
+                Width = 10,
+                Height = 10,
+                Fill = Brushes.White,
+                Margin = new Thickness(5, 0, 0, 0) // Отступ слева для расстояния между текстом и кружком
+            };
+            requestContainer.Children.Add(whiteCircle);
 
             // Добавляем контейнер в StackPanel
             answerStackPanel.Children.Add(requestContainer);

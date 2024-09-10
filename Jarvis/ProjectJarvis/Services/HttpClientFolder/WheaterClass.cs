@@ -1,26 +1,22 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Jarvis.Project.Services.HttpClientFolder
+namespace Jarvis.Project.Services.HttpClientFolder;
+
+public class WheaterClass
 {
-    public class WheaterClass
+    private static readonly string APIKEY = Properties.Settings.Default.APIkeyWeather;
+
+    public static async Task<HttpClient> GetWeatherAsync(string city)
     {
-        private static readonly string APIKEY = Properties.Settings.Default.APIkeyWeather;
+        if (city == "None") return new HttpClient();
+        var url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={APIKEY}&units=metric&lang=ru";
 
-        public static async Task<HttpClient> GetWeatherAsync(string city)
+        using (var client = new HttpClient())
         {
-            if (city == "None")
-            {
-                return new HttpClient();
-            }
-            string url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={APIKEY}&units=metric&lang=ru";
-
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync(url).Result; // Получаем ответ от сервера
-            }
-
-            return null;
+            var response = client.GetAsync(url).Result; // Получаем ответ от сервера
         }
+
+        return null;
     }
 }

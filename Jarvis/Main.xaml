@@ -1,76 +1,130 @@
 ﻿<Window x:Class="Jarvis.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Jarvis" Width="1240" Height="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        Title="Jarvis" Width="1240" Height="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent">
 
     <Window.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="275"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="275" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Grid.ColumnSpan="2" Background="{DynamicResource Color.Black}" Opacity="0.9" CornerRadius="20"/>
-            <Grid Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="65" MouseLeftButtonDown="Header_MouseLeftButtonDown"/>
+            <Border Grid.Column="0" Grid.ColumnSpan="2" Background="{DynamicResource Color.Black}" Opacity="0.9"
+                    CornerRadius="20" />
+            <Grid Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="65"
+                  MouseLeftButtonDown="Header_MouseLeftButtonDown" />
 
             <Grid Grid.Column="0">
                 <Grid Margin="20,30,0,0">
                     <StackPanel Orientation="Vertical">
-                        <Path Data="M0 0V27.1169C0 29.1969 1.6862 30.8831 3.76623 30.8831H31.8884C36.1583 30.8831 40.127 28.6773 42.39 25.0463L45.7079 19.7227L52.6935 30.8831H58L48.2256 15.683L58 0H53.0937L45.7079 11.7087L38.2903 0H33.3628L43.1901 15.7002L38.5465 23.0617C37.0298 25.4662 34.3905 26.9237 31.5533 26.9237C26.9833 26.9237 23.2785 23.2086 23.2785 18.6256V0H19.5044V18.4643C19.5044 21.7816 20.8015 24.7951 22.9147 27.0227H6.10929C4.86127 27.0227 3.84956 26.011 3.84956 24.763V0H0Z" Fill="{DynamicResource Color.White}" Margin="25,0,0,0"/>
+                        <Path
+                            Data="M0 0V27.1169C0 29.1969 1.6862 30.8831 3.76623 30.8831H31.8884C36.1583 30.8831 40.127 28.6773 42.39 25.0463L45.7079 19.7227L52.6935 30.8831H58L48.2256 15.683L58 0H53.0937L45.7079 11.7087L38.2903 0H33.3628L43.1901 15.7002L38.5465 23.0617C37.0298 25.4662 34.3905 26.9237 31.5533 26.9237C26.9833 26.9237 23.2785 23.2086 23.2785 18.6256V0H19.5044V18.4643C19.5044 21.7816 20.8015 24.7951 22.9147 27.0227H6.10929C4.86127 27.0227 3.84956 26.011 3.84956 24.763V0H0Z"
+                            Fill="{DynamicResource Color.White}" Margin="25,0,0,0" />
                         <StackPanel Orientation="Vertical" Margin="0,25,0,0">
-                            <Button x:Name="MainGridButton" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}" Click="ButtonMain_OnClick">
+                            <Button x:Name="MainGridButton" HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}"
+                                    Click="ButtonMain_OnClick">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Grid>
-                                            <Path Data="M3,12a9,9 0 1,0 18,0a9,9 0 1,0 -18,0" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
-                                            <Path Data="M12 7.62671V13.1267" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
-                                            <Path Data="M12 16.3733V15.8733" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
+                                            <Path Data="M3,12a9,9 0 1,0 18,0a9,9 0 1,0 -18,0"
+                                                  Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                                  StrokeLineJoin="Round" StrokeStartLineCap="Round" />
+                                            <Path Data="M12 7.62671V13.1267" Stroke="{DynamicResource Color.White}"
+                                                  StrokeThickness="1.5" StrokeLineJoin="Round"
+                                                  StrokeStartLineCap="Round" />
+                                            <Path Data="M12 16.3733V15.8733" Stroke="{DynamicResource Color.White}"
+                                                  StrokeThickness="1.5" StrokeLineJoin="Round"
+                                                  StrokeStartLineCap="Round" />
                                         </Grid>
-                                        <TextBlock Text="Основное" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18"/>
+                                        <TextBlock Text="Основное" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" Margin="10,0,0,0"
+                                                   Foreground="{DynamicResource Color.White}"
+                                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}">
+                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+                                    Style="{DynamicResource Main.SideButton}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                        <Path Data="M7.52722 20.8411C6.86106 21.2736 6 20.7723 6 19.9521V3.94163C6 3.42158 6.33579 3 6.75 3H17.25C17.6642 3 18 3.42158 18 3.94163V19.9521C18 20.7723 17.1389 21.2736 16.4728 20.8411L12.5272 18.2799C12.2043 18.0702 11.7957 18.0702 11.4728 18.2799L7.52722 20.8411Z" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
-                                        <TextBlock Text="Информация" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18"/>
+                                        <Path
+                                            Data="M7.52722 20.8411C6.86106 21.2736 6 20.7723 6 19.9521V3.94163C6 3.42158 6.33579 3 6.75 3H17.25C17.6642 3 18 3.42158 18 3.94163V19.9521C18 20.7723 17.1389 21.2736 16.4728 20.8411L12.5272 18.2799C12.2043 18.0702 11.7957 18.0702 11.4728 18.2799L7.52722 20.8411Z"
+                                            Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                            StrokeLineJoin="Round" StrokeStartLineCap="Round" />
+                                        <TextBlock Text="Информация" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" Margin="10,0,0,0"
+                                                   Foreground="{DynamicResource Color.White}"
+                                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}">
+                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+                                    Style="{DynamicResource Main.SideButton}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Grid>
-                                            <Path Data="M3 6.75C3 4.98223 3 4.09835 3.54917 3.54917C4.09835 3 4.98223 3 6.75 3C8.51777 3 9.40165 3 9.95083 3.54917C10.5 4.09835 10.5 4.98223 10.5 6.75C10.5 8.51777 10.5 9.40165 9.95083 9.95083C9.40165 10.5 8.51777 10.5 6.75 10.5C4.98223 10.5 4.09835 10.5 3.54917 9.95083C3 9.40165 3 8.51777 3 6.75Z" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
-                                            <Path Data="M3 17.25C3 15.4822 3 14.5983 3.54917 14.0492C4.09835 13.5 4.98223 13.5 6.75 13.5C8.51777 13.5 9.40165 13.5 9.95083 14.0492C10.5 14.5983 10.5 15.4822 10.5 17.25C10.5 19.0178 10.5 19.9017 9.95083 20.4508C9.40165 21 8.51777 21 6.75 21C4.98223 21 4.09835 21 3.54917 20.4508C3 19.9017 3 19.0178 3 17.25Z" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
-                                            <Path Data="M13.5 6.75C13.5 4.98223 13.5 4.09835 14.0492 3.54917C14.5983 3 15.4822 3 17.25 3C19.0178 3 19.9017 3 20.4508 3.54917C21 4.09835 21 4.98223 21 6.75C21 8.51777 21 9.40165 20.4508 9.95083C19.9017 10.5 19.0178 10.5 17.25 10.5C15.4822 10.5 14.5983 10.5 14.0492 9.95083C13.5 9.40165 13.5 8.51777 13.5 6.75Z" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
-                                            <Path Data="M13.5 17.25C13.5 15.4822 13.5 14.5983 14.0492 14.0492C14.5983 13.5 15.4822 13.5 17.25 13.5C19.0178 13.5 19.9017 13.5 20.4508 14.0492C21 14.5983 21 15.4822 21 17.25C21 19.0178 21 19.9017 20.4508 20.4508C19.9017 21 19.0178 21 17.25 21C15.4822 21 14.5983 21 14.0492 20.4508C13.5 19.9017 13.5 19.0178 13.5 17.25Z" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
+                                            <Path
+                                                Data="M3 6.75C3 4.98223 3 4.09835 3.54917 3.54917C4.09835 3 4.98223 3 6.75 3C8.51777 3 9.40165 3 9.95083 3.54917C10.5 4.09835 10.5 4.98223 10.5 6.75C10.5 8.51777 10.5 9.40165 9.95083 9.95083C9.40165 10.5 8.51777 10.5 6.75 10.5C4.98223 10.5 4.09835 10.5 3.54917 9.95083C3 9.40165 3 8.51777 3 6.75Z"
+                                                Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                                StrokeLineJoin="Round" StrokeStartLineCap="Round" />
+                                            <Path
+                                                Data="M3 17.25C3 15.4822 3 14.5983 3.54917 14.0492C4.09835 13.5 4.98223 13.5 6.75 13.5C8.51777 13.5 9.40165 13.5 9.95083 14.0492C10.5 14.5983 10.5 15.4822 10.5 17.25C10.5 19.0178 10.5 19.9017 9.95083 20.4508C9.40165 21 8.51777 21 6.75 21C4.98223 21 4.09835 21 3.54917 20.4508C3 19.9017 3 19.0178 3 17.25Z"
+                                                Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                                StrokeLineJoin="Round" StrokeStartLineCap="Round" />
+                                            <Path
+                                                Data="M13.5 6.75C13.5 4.98223 13.5 4.09835 14.0492 3.54917C14.5983 3 15.4822 3 17.25 3C19.0178 3 19.9017 3 20.4508 3.54917C21 4.09835 21 4.98223 21 6.75C21 8.51777 21 9.40165 20.4508 9.95083C19.9017 10.5 19.0178 10.5 17.25 10.5C15.4822 10.5 14.5983 10.5 14.0492 9.95083C13.5 9.40165 13.5 8.51777 13.5 6.75Z"
+                                                Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                                StrokeLineJoin="Round" StrokeStartLineCap="Round" />
+                                            <Path
+                                                Data="M13.5 17.25C13.5 15.4822 13.5 14.5983 14.0492 14.0492C14.5983 13.5 15.4822 13.5 17.25 13.5C19.0178 13.5 19.9017 13.5 20.4508 14.0492C21 14.5983 21 15.4822 21 17.25C21 19.0178 21 19.9017 20.4508 20.4508C19.9017 21 19.0178 21 17.25 21C15.4822 21 14.5983 21 14.0492 20.4508C13.5 19.9017 13.5 19.0178 13.5 17.25Z"
+                                                Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                                StrokeLineJoin="Round" StrokeStartLineCap="Round" />
                                         </Grid>
-                                        <TextBlock Text="Список команд" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18"/>
+                                        <TextBlock Text="Список команд" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" Margin="10,0,0,0"
+                                                   Foreground="{DynamicResource Color.White}"
+                                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button x:Name="SettingsGridButton" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}">
+                            <Button x:Name="SettingsGridButton" HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Grid>
-                                            <Path Data="M10.11 3.9005C10.1611 3.38929 10.5912 3 11.105 3H12.895C13.4088 3 13.8389 3.38929 13.89 3.9005L13.9233 4.23269C14.712 4.42735 15.4547 4.739 16.1318 5.1482L16.3908 4.93631C16.7884 4.61099 17.3678 4.63989 17.7311 5.00316L18.9969 6.2689C19.3601 6.63218 19.389 7.21163 19.0637 7.60925L18.8518 7.86823C19.261 8.54533 19.5727 9.28799 19.7673 10.0767L20.0995 10.1099C20.6107 10.1611 21 10.5912 21 11.105V12.895C21 13.4088 20.6107 13.8389 20.0995 13.89L19.7673 13.9233C19.5727 14.712 19.261 15.4547 18.8518 16.1318L19.0637 16.3908C19.389 16.7884 19.3601 17.3679 18.9968 17.7311L17.7311 18.9969C17.3678 19.3601 16.7884 19.389 16.3908 19.0637L16.1318 18.8518C15.4547 19.261 14.712 19.5727 13.9233 19.7673L13.89 20.0995C13.8389 20.6107 13.4088 21 12.895 21H11.105C10.5912 21 10.1611 20.6107 10.11 20.0995L10.0767 19.7673C9.28799 19.5727 8.54533 19.261 7.86822 18.8518L7.60929 19.0637C7.21167 19.389 6.63222 19.3601 6.26894 18.9968L5.00321 17.7311C4.63993 17.3678 4.61103 16.7884 4.93636 16.3907L5.1482 16.1318C4.73901 15.4547 4.42735 14.712 4.23269 13.9233L3.9005 13.89C3.38929 13.8389 3 13.4088 3 12.895V11.105C3 10.5912 3.38929 10.1611 3.9005 10.11L4.23269 10.0767C4.42734 9.28799 4.73899 8.54533 5.14818 7.86822L4.93632 7.60929C4.611 7.21167 4.6399 6.63222 5.00317 6.26894L6.26891 5.00321C6.63219 4.63993 7.21164 4.61103 7.60926 4.93636L7.86818 5.1482C8.5453 4.73901 9.28797 4.42735 10.0767 4.23269L10.11 3.9005Z" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round"/>
-                                            <Path Data="M0,2.5a2.5,2.5 0 1,0 5,0a2.5,2.5 0 1,0 -5,0" Stroke="{DynamicResource Color.White}" StrokeThickness="1.5" StrokeLineJoin="Round" StrokeStartLineCap="Round">
+                                            <Path
+                                                Data="M10.11 3.9005C10.1611 3.38929 10.5912 3 11.105 3H12.895C13.4088 3 13.8389 3.38929 13.89 3.9005L13.9233 4.23269C14.712 4.42735 15.4547 4.739 16.1318 5.1482L16.3908 4.93631C16.7884 4.61099 17.3678 4.63989 17.7311 5.00316L18.9969 6.2689C19.3601 6.63218 19.389 7.21163 19.0637 7.60925L18.8518 7.86823C19.261 8.54533 19.5727 9.28799 19.7673 10.0767L20.0995 10.1099C20.6107 10.1611 21 10.5912 21 11.105V12.895C21 13.4088 20.6107 13.8389 20.0995 13.89L19.7673 13.9233C19.5727 14.712 19.261 15.4547 18.8518 16.1318L19.0637 16.3908C19.389 16.7884 19.3601 17.3679 18.9968 17.7311L17.7311 18.9969C17.3678 19.3601 16.7884 19.389 16.3908 19.0637L16.1318 18.8518C15.4547 19.261 14.712 19.5727 13.9233 19.7673L13.89 20.0995C13.8389 20.6107 13.4088 21 12.895 21H11.105C10.5912 21 10.1611 20.6107 10.11 20.0995L10.0767 19.7673C9.28799 19.5727 8.54533 19.261 7.86822 18.8518L7.60929 19.0637C7.21167 19.389 6.63222 19.3601 6.26894 18.9968L5.00321 17.7311C4.63993 17.3678 4.61103 16.7884 4.93636 16.3907L5.1482 16.1318C4.73901 15.4547 4.42735 14.712 4.23269 13.9233L3.9005 13.89C3.38929 13.8389 3 13.4088 3 12.895V11.105C3 10.5912 3.38929 10.1611 3.9005 10.11L4.23269 10.0767C4.42734 9.28799 4.73899 8.54533 5.14818 7.86822L4.93632 7.60929C4.611 7.21167 4.6399 6.63222 5.00317 6.26894L6.26891 5.00321C6.63219 4.63993 7.21164 4.61103 7.60926 4.93636L7.86818 5.1482C8.5453 4.73901 9.28797 4.42735 10.0767 4.23269L10.11 3.9005Z"
+                                                Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                                StrokeLineJoin="Round" StrokeStartLineCap="Round" />
+                                            <Path Data="M0,2.5a2.5,2.5 0 1,0 5,0a2.5,2.5 0 1,0 -5,0"
+                                                  Stroke="{DynamicResource Color.White}" StrokeThickness="1.5"
+                                                  StrokeLineJoin="Round" StrokeStartLineCap="Round">
                                                 <Path.RenderTransform>
-                                                    <MatrixTransform Matrix="1 0 0 -1 9.5 14.5"/>
+                                                    <MatrixTransform Matrix="1 0 0 -1 9.5 14.5" />
                                                 </Path.RenderTransform>
                                             </Path>
                                         </Grid>
-                                        <TextBlock Text="Настройки" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18"/>
+                                        <TextBlock Text="Настройки" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" Margin="10,0,0,0"
+                                                   Foreground="{DynamicResource Color.White}"
+                                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}">
+                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+                                    Style="{DynamicResource Main.SideButton}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                        <Path Data="M14.3365 12.3466L14.0765 11.9195C13.9082 12.022 13.8158 12.2137 13.8405 12.4092C13.8651 12.6046 14.0022 12.7674 14.1907 12.8249L14.3365 12.3466ZM9.6634 12.3466L9.80923 12.8249C9.99769 12.7674 10.1348 12.6046 10.1595 12.4092C10.1841 12.2137 10.0917 12.022 9.92339 11.9195L9.6634 12.3466ZM4.06161 19.002L3.56544 18.9402L4.06161 19.002ZM19.9383 19.002L20.4345 18.9402L19.9383 19.002ZM16 8.5C16 9.94799 15.2309 11.2168 14.0765 11.9195L14.5965 12.7737C16.0365 11.8971 17 10.3113 17 8.5H16ZM12 4.5C14.2091 4.5 16 6.29086 16 8.5H17C17 5.73858 14.7614 3.5 12 3.5V4.5ZM7.99996 8.5C7.99996 6.29086 9.79082 4.5 12 4.5V3.5C9.23854 3.5 6.99996 5.73858 6.99996 8.5H7.99996ZM9.92339 11.9195C8.76904 11.2168 7.99996 9.948 7.99996 8.5H6.99996C6.99996 10.3113 7.96342 11.8971 9.40342 12.7737L9.92339 11.9195ZM9.51758 11.8683C6.36083 12.8309 3.98356 15.5804 3.56544 18.9402L4.55778 19.0637C4.92638 16.1018 7.02381 13.6742 9.80923 12.8249L9.51758 11.8683ZM3.56544 18.9402C3.45493 19.8282 4.19055 20.5 4.99996 20.5V19.5C4.70481 19.5 4.53188 19.2719 4.55778 19.0637L3.56544 18.9402ZM4.99996 20.5H19V19.5H4.99996V20.5ZM19 20.5C19.8094 20.5 20.545 19.8282 20.4345 18.9402L19.4421 19.0637C19.468 19.2719 19.2951 19.5 19 19.5V20.5ZM20.4345 18.9402C20.0164 15.5804 17.6391 12.8309 14.4823 11.8683L14.1907 12.8249C16.9761 13.6742 19.0735 16.1018 19.4421 19.0637L20.4345 18.9402Z" Fill="{DynamicResource Color.White}"/>
-                                        <TextBlock Text="Профиль" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18"/>
+                                        <Path
+                                            Data="M14.3365 12.3466L14.0765 11.9195C13.9082 12.022 13.8158 12.2137 13.8405 12.4092C13.8651 12.6046 14.0022 12.7674 14.1907 12.8249L14.3365 12.3466ZM9.6634 12.3466L9.80923 12.8249C9.99769 12.7674 10.1348 12.6046 10.1595 12.4092C10.1841 12.2137 10.0917 12.022 9.92339 11.9195L9.6634 12.3466ZM4.06161 19.002L3.56544 18.9402L4.06161 19.002ZM19.9383 19.002L20.4345 18.9402L19.9383 19.002ZM16 8.5C16 9.94799 15.2309 11.2168 14.0765 11.9195L14.5965 12.7737C16.0365 11.8971 17 10.3113 17 8.5H16ZM12 4.5C14.2091 4.5 16 6.29086 16 8.5H17C17 5.73858 14.7614 3.5 12 3.5V4.5ZM7.99996 8.5C7.99996 6.29086 9.79082 4.5 12 4.5V3.5C9.23854 3.5 6.99996 5.73858 6.99996 8.5H7.99996ZM9.92339 11.9195C8.76904 11.2168 7.99996 9.948 7.99996 8.5H6.99996C6.99996 10.3113 7.96342 11.8971 9.40342 12.7737L9.92339 11.9195ZM9.51758 11.8683C6.36083 12.8309 3.98356 15.5804 3.56544 18.9402L4.55778 19.0637C4.92638 16.1018 7.02381 13.6742 9.80923 12.8249L9.51758 11.8683ZM3.56544 18.9402C3.45493 19.8282 4.19055 20.5 4.99996 20.5V19.5C4.70481 19.5 4.53188 19.2719 4.55778 19.0637L3.56544 18.9402ZM4.99996 20.5H19V19.5H4.99996V20.5ZM19 20.5C19.8094 20.5 20.545 19.8282 20.4345 18.9402L19.4421 19.0637C19.468 19.2719 19.2951 19.5 19 19.5V20.5ZM20.4345 18.9402C20.0164 15.5804 17.6391 12.8309 14.4823 11.8683L14.1907 12.8249C16.9761 13.6742 19.0735 16.1018 19.4421 19.0637L20.4345 18.9402Z"
+                                            Fill="{DynamicResource Color.White}" />
+                                        <TextBlock Text="Профиль" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" Margin="10,0,0,0"
+                                                   Foreground="{DynamicResource Color.White}"
+                                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -82,24 +136,31 @@
             <Grid Grid.Column="0" VerticalAlignment="Bottom" Margin="30,0,0,30">
                 <StackPanel Orientation="Vertical">
                     <Grid Margin="0,0,0,0">
-                        <TextBlock Text="Включить" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18"/>
-                        <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Center" Style="{DynamicResource Main.SideToggleButton}"/>
+                        <TextBlock Text="Включить" Foreground="{DynamicResource Color.White}"
+                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18" />
+                        <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Center"
+                                      Style="{DynamicResource Main.SideToggleButton}" />
                     </Grid>
                 </StackPanel>
             </Grid>
 
             <Grid Grid.Column="1" x:Name="MainGrid">
-                <Frame x:Name="MainFrame" Source="ProjectJarvis\Views\Pages\Primary\Basic.xaml" NavigationUIVisibility="Hidden"/>
+                <Frame x:Name="MainFrame" Source="ProjectJarvis\Views\Pages\Primary\Basic.xaml"
+                       NavigationUIVisibility="Hidden" />
 
                 <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
                     <StackPanel Orientation="Horizontal">
-                        <Button Margin="0,0,5,0" Style="{DynamicResource General.DefaultButton}" Click="ButtonMinimize_Click">
-                            <Path Data="M0,0H21V4.52H0Z" Fill="{DynamicResource Color.DarkGray}"/>
+                        <Button Margin="0,0,5,0" Style="{DynamicResource General.DefaultButton}"
+                                Click="ButtonMinimize_Click">
+                            <Path Data="M0,0H21V4.52H0Z" Fill="{DynamicResource Color.DarkGray}" />
                         </Button>
-                        <Button Margin="5,0,0,0" Style="{DynamicResource General.DefaultButton}" Click="ButtonClose_Click">
+                        <Button Margin="5,0,0,0" Style="{DynamicResource General.DefaultButton}"
+                                Click="ButtonClose_Click">
                             <Grid>
-                                <Path Data="M14.85,18.05L0,3.2L3.2,0L18.05,14.85Z" Fill="{DynamicResource Color.Turquoise}"/>
-                                <Path Data="M0,14.85L14.85,0L18.05,3.2L3.2,18.05Z" Fill="{DynamicResource Color.Turquoise}"/>
+                                <Path Data="M14.85,18.05L0,3.2L3.2,0L18.05,14.85Z"
+                                      Fill="{DynamicResource Color.Turquoise}" />
+                                <Path Data="M0,14.85L14.85,0L18.05,3.2L3.2,18.05Z"
+                                      Fill="{DynamicResource Color.Turquoise}" />
                             </Grid>
                         </Button>
                     </StackPanel>
@@ -108,38 +169,46 @@
             <Grid Grid.Column="1" x:Name="SettingsGrid" Visibility="Collapsed">
 
                 <Label Foreground="White" Margin="20, -570 , 10 , 30" FontSize="28px" Height="100px">Настройки</Label>
-                <Grid Width="511" Height="321" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,60,20,20"  >
+                <Grid Width="511" Height="321" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,60,20,20">
 
                     <WrapPanel Orientation="Horizontal">
                         <Label Foreground="{DynamicResource Color.Gray}">Город:</Label>
-                        <TextBox Width="150px" Height="25px" TextAlignment="Center" Background="{DynamicResource Color.LightBlack}" FontSize="20px" Foreground="{DynamicResource Color.White}" BorderBrush="Transparent" x:Name="CityBox">
+                        <TextBox Width="150px" Height="25px" TextAlignment="Center"
+                                 Background="{DynamicResource Color.LightBlack}" FontSize="20px"
+                                 Foreground="{DynamicResource Color.White}" BorderBrush="Transparent" x:Name="CityBox">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="8"/>
+                                    <Setter Property="CornerRadius" Value="8" />
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-                        <Button Background="{DynamicResource Color.Turquoise}" Foreground="{DynamicResource Color.White}" Width="75px" BorderBrush="Transparent" Content="Сохранить" Margin="7, 0 ,0,0" Click="SaveCity_OnClick">
+                        <Button Background="{DynamicResource Color.Turquoise}"
+                                Foreground="{DynamicResource Color.White}" Width="75px" BorderBrush="Transparent"
+                                Content="Сохранить" Margin="7, 0 ,0,0" Click="SaveCity_OnClick">
 
                             <Button.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="8"/>
+                                    <Setter Property="CornerRadius" Value="8" />
                                 </Style>
                             </Button.Resources>
                         </Button>
                     </WrapPanel>
-                    <Label Foreground="{DynamicResource Color.Red}" x:Name="ErrorLabel" Margin="75, 25, 150, 250"></Label>
+                    <Label Foreground="{DynamicResource Color.Red}" x:Name="ErrorLabel" Margin="75, 25, 150, 250" />
 
                 </Grid>
                 <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
                     <StackPanel Orientation="Horizontal">
-                        <Button Margin="0,0,5,0" Style="{DynamicResource General.DefaultButton}" Click="ButtonMinimize_Click">
-                            <Path Data="M0,0H21V4.52H0Z" Fill="{DynamicResource Color.DarkGray}"/>
+                        <Button Margin="0,0,5,0" Style="{DynamicResource General.DefaultButton}"
+                                Click="ButtonMinimize_Click">
+                            <Path Data="M0,0H21V4.52H0Z" Fill="{DynamicResource Color.DarkGray}" />
                         </Button>
-                        <Button Margin="5,0,0,0" Style="{DynamicResource General.DefaultButton}" Click="ButtonClose_Click">
+                        <Button Margin="5,0,0,0" Style="{DynamicResource General.DefaultButton}"
+                                Click="ButtonClose_Click">
                             <Grid>
-                                <Path Data="M14.85,18.05L0,3.2L3.2,0L18.05,14.85Z" Fill="{DynamicResource Color.Turquoise}"/>
-                                <Path Data="M0,14.85L14.85,0L18.05,3.2L3.2,18.05Z" Fill="{DynamicResource Color.Turquoise}"/>
+                                <Path Data="M14.85,18.05L0,3.2L3.2,0L18.05,14.85Z"
+                                      Fill="{DynamicResource Color.Turquoise}" />
+                                <Path Data="M0,14.85L14.85,0L18.05,3.2L3.2,18.05Z"
+                                      Fill="{DynamicResource Color.Turquoise}" />
                             </Grid>
                         </Button>
                     </StackPanel>

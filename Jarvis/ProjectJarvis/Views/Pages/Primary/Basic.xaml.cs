@@ -1,35 +1,31 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Net.Http;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using NAudio.Wave;
-using System.Windows;
-using Jarvis.Project.Settings.ConfigurationManager;
-using System.Xml.Linq;
 using log4net;
+using NAudio.Wave;
 
 namespace Jarvis.Project.Views.Pages.Primary;
 
 public partial class Basic : Page
 {
-    public static Basic Instance { get; private set; }
     private const string ApiKey = "e327b05bf5e93f0560363f8bc007f7e2";
-    private readonly HttpClient http = new HttpClient();
-    private WaveInEvent waveIn;
-    private double baseScale = 0.9;
-    private double maxScale = 2.3;
-    private Storyboard[] waveAnimations;
-    private ScaleTransform[] scaleTransforms;
+    private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+    private readonly HttpClient http = new();
+    private readonly double baseScale = 0.9;
+    private bool isQuietMode;
+    private readonly double maxScale = 2.3;
+    private readonly double quietModeScaleFactor = 0.09;
+    private readonly Random random;
     private RotateTransform[] rotateTransforms;
+    private ScaleTransform[] scaleTransforms;
     private TranslateTransform[] translateTransforms;
-    private Random random;
-    private bool isQuietMode = false;
-    private double quietModeScaleFactor = 0.09;
-    private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+    private Storyboard[] waveAnimations;
+    private WaveInEvent waveIn;
 
     public Basic()
     {
@@ -39,7 +35,9 @@ public partial class Basic : Page
         random = new Random();
         Instance = this;
     }
-    
+
+    public static Basic Instance { get; private set; }
+
     // Метод для добавления ответа Джарвиса
     public void AddJarvisAnswer(string answer)
     {
@@ -82,7 +80,10 @@ public partial class Basic : Page
         {
             // Создаем контейнер для запроса с выравниванием справа
             var requestContainer = new StackPanel
-                { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 10, 0, 10), HorizontalAlignment = HorizontalAlignment.Right };
+            {
+                Orientation = Orientation.Horizontal, Margin = new Thickness(0, 10, 0, 10),
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
 
             // Добавляем текст запроса
             var requestTextBlock = new TextBlock
@@ -123,22 +124,22 @@ public partial class Basic : Page
         rotateTransforms = new RotateTransform[5];
         translateTransforms = new TranslateTransform[5];
 
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
-            Ellipse circle = (Ellipse)FindName($"circle{i + 1}");
+            var circle = (Ellipse)FindName($"circle{i + 1}");
 
-            RadialGradientBrush gradientBrush = new RadialGradientBrush();
+            var gradientBrush = new RadialGradientBrush();
             gradientBrush.GradientStops.Add(new GradientStop(Color.FromRgb(0, 40, 215), 0.1));
             gradientBrush.GradientStops.Add(new GradientStop(Color.FromRgb(0, 100, 255), 0.5));
 
 
             circle.Fill = gradientBrush;
 
-            ScaleTransform scaleTransform = new ScaleTransform();
-            RotateTransform rotateTransform = new RotateTransform();
-            TranslateTransform translateTransform = new TranslateTransform();
+            var scaleTransform = new ScaleTransform();
+            var rotateTransform = new RotateTransform();
+            var translateTransform = new TranslateTransform();
 
-            TransformGroup transformGroup = new TransformGroup();
+            var transformGroup = new TransformGroup();
             transformGroup.Children.Add(scaleTransform);
             transformGroup.Children.Add(rotateTransform);
             transformGroup.Children.Add(translateTransform);
@@ -150,7 +151,7 @@ public partial class Basic : Page
             translateTransforms[i] = translateTransform;
 
             // Основная анимация масштабирования
-            DoubleAnimation scaleAnimationX = new DoubleAnimation
+            var scaleAnimationX = new DoubleAnimation
             {
                 From = baseScale,
                 To = baseScale + 0.5,
@@ -162,7 +163,7 @@ public partial class Basic : Page
             Storyboard.SetTarget(scaleAnimationX, scaleTransform);
             Storyboard.SetTargetProperty(scaleAnimationX, new PropertyPath(ScaleTransform.ScaleXProperty));
 
-            DoubleAnimation scaleAnimationY = new DoubleAnimation
+            var scaleAnimationY = new DoubleAnimation
             {
                 From = baseScale,
                 To = baseScale + 0.5,
@@ -175,7 +176,7 @@ public partial class Basic : Page
             Storyboard.SetTargetProperty(scaleAnimationY, new PropertyPath(ScaleTransform.ScaleYProperty));
 
             // Анимация вращения
-            DoubleAnimation rotateAnimation = new DoubleAnimation
+            var rotateAnimation = new DoubleAnimation
             {
                 From = 0,
                 To = 360,
@@ -187,7 +188,7 @@ public partial class Basic : Page
             Storyboard.SetTargetProperty(rotateAnimation, new PropertyPath(RotateTransform.AngleProperty));
 
             // Анимация перемещения
-            DoubleAnimation translateAnimationX = new DoubleAnimation
+            var translateAnimationX = new DoubleAnimation
             {
                 From = -50,
                 To = 50,
@@ -199,7 +200,7 @@ public partial class Basic : Page
             Storyboard.SetTarget(translateAnimationX, translateTransform);
             Storyboard.SetTargetProperty(translateAnimationX, new PropertyPath(TranslateTransform.XProperty));
 
-            DoubleAnimation translateAnimationY = new DoubleAnimation
+            var translateAnimationY = new DoubleAnimation
             {
                 From = -50,
                 To = 50,
@@ -212,7 +213,7 @@ public partial class Basic : Page
             Storyboard.SetTargetProperty(translateAnimationY, new PropertyPath(TranslateTransform.YProperty));
 
             // Дополнительная анимация масштабирования "волноподобная"
-            DoubleAnimation waveScaleAnimationX = new DoubleAnimation
+            var waveScaleAnimationX = new DoubleAnimation
             {
                 From = baseScale,
                 To = baseScale + 0.3,
@@ -224,7 +225,7 @@ public partial class Basic : Page
             Storyboard.SetTarget(waveScaleAnimationX, scaleTransform);
             Storyboard.SetTargetProperty(waveScaleAnimationX, new PropertyPath(ScaleTransform.ScaleXProperty));
 
-            DoubleAnimation waveScaleAnimationY = new DoubleAnimation
+            var waveScaleAnimationY = new DoubleAnimation
             {
                 From = baseScale,
                 To = baseScale + 0.3,
@@ -253,9 +254,9 @@ public partial class Basic : Page
     private void OnDataAvailable(object sender, WaveInEventArgs e)
     {
         float maxVolume = 0;
-        for (int index = 0; index < e.BytesRecorded; index += 2)
+        for (var index = 0; index < e.BytesRecorded; index += 2)
         {
-            short sample = (short)((e.Buffer[index + 1] << 8) | e.Buffer[index + 0]);
+            var sample = (short)((e.Buffer[index + 1] << 8) | e.Buffer[index + 0]);
             var volume = Math.Abs(sample / 32768f);
             if (volume > maxVolume)
                 maxVolume = volume;
@@ -268,15 +269,17 @@ public partial class Basic : Page
     {
         isQuietMode = volume < 0.001;
 
-        double scale = baseScale + (volume * (maxScale - baseScale));
+        var scale = baseScale + volume * (maxScale - baseScale);
 
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
-            double minScaleFactor = isQuietMode ? 0.1 : 0.5;
-            double randomScaleX = baseScale + random.NextDouble() * (isQuietMode ? quietModeScaleFactor : 0.4) * minScaleFactor;
-            double randomScaleY = baseScale + random.NextDouble() * (isQuietMode ? quietModeScaleFactor : 0.4) * minScaleFactor;
+            var minScaleFactor = isQuietMode ? 0.1 : 0.5;
+            var randomScaleX =
+                baseScale + random.NextDouble() * (isQuietMode ? quietModeScaleFactor : 0.4) * minScaleFactor;
+            var randomScaleY =
+                baseScale + random.NextDouble() * (isQuietMode ? quietModeScaleFactor : 0.4) * minScaleFactor;
 
-            DoubleAnimation scaleAnimationX = new DoubleAnimation
+            var scaleAnimationX = new DoubleAnimation
             {
                 To = randomScaleX * scale,
                 Duration = TimeSpan.FromSeconds(0.2),
@@ -284,7 +287,7 @@ public partial class Basic : Page
             };
             scaleTransforms[i].BeginAnimation(ScaleTransform.ScaleXProperty, scaleAnimationX);
 
-            DoubleAnimation scaleAnimationY = new DoubleAnimation
+            var scaleAnimationY = new DoubleAnimation
             {
                 To = randomScaleY * scale,
                 Duration = TimeSpan.FromSeconds(0.2),
@@ -292,7 +295,7 @@ public partial class Basic : Page
             };
             scaleTransforms[i].BeginAnimation(ScaleTransform.ScaleYProperty, scaleAnimationY);
 
-            DoubleAnimation translateAnimationX = new DoubleAnimation
+            var translateAnimationX = new DoubleAnimation
             {
                 To = random.NextDouble() * (isQuietMode ? quietModeScaleFactor : 0.4) * minScaleFactor * 100,
                 Duration = TimeSpan.FromSeconds(0.2),
@@ -300,7 +303,7 @@ public partial class Basic : Page
             };
             translateTransforms[i].BeginAnimation(TranslateTransform.XProperty, translateAnimationX);
 
-            DoubleAnimation translateAnimationY = new DoubleAnimation
+            var translateAnimationY = new DoubleAnimation
             {
                 To = random.NextDouble() * (isQuietMode ? quietModeScaleFactor : 0.4) * minScaleFactor * 100,
                 Duration = TimeSpan.FromSeconds(0.2),

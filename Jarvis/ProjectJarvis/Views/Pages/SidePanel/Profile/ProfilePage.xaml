@@ -5,9 +5,7 @@
 
     <Page.Content>
         <Grid>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="15,20,15,20">
-
-            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="15,20,15,20" />
         </Grid>
     </Page.Content>
 </Page>

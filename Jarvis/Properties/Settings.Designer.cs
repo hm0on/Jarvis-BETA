@@ -48,8 +48,8 @@ namespace Jarvis.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\WINDOWS\\Microsoft.Net\\assembly\\GAC_MSIL\\Accessibility\\v4.0_4.0.0.0__b03f5f7f11" +
-            "d50a3a\\Accessibility.dll")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\n                C:\\WINDOWS\\Microsoft.Net\\assembly\\GAC_MSIL\\Accessibility\\v4.0_4." +
+            "0.0.0__b03f5f7f11d50a3a\\Accessibility.dll\n            ")]
         public string AssemblyDllPath {
             get {
                 return ((string)(this["AssemblyDllPath"]));

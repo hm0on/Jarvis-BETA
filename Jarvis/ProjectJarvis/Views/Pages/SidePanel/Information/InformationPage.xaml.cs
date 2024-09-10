@@ -1,9 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Information
+namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Information;
+
+public partial class InformationPage : Page
 {
-    public partial class InformationPage : Page
+    public InformationPage()
     {
-        public InformationPage() => InitializeComponent();
+        InitializeComponent();
     }
 }

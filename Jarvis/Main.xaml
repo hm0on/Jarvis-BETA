@@ -47,7 +47,7 @@
                                 </Button.Content>
                             </Button>
                             <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-                                    Style="{DynamicResource Main.SideButton}">
+                                    Style="{DynamicResource Main.SideButton}" Click="ButtonInformation_OnClick">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Path
@@ -62,7 +62,7 @@
                                 </Button.Content>
                             </Button>
                             <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-                                    Style="{DynamicResource Main.SideButton}">
+                                    Style="{DynamicResource Main.SideButton}" Click="ButtonCommandsList_OnClick">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Grid>
@@ -91,7 +91,8 @@
                                 </Button.Content>
                             </Button>
                             <Button x:Name="SettingsGridButton" HorizontalAlignment="Left"
-                                    HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}">
+                                    HorizontalContentAlignment="Left" Style="{DynamicResource Main.SideButton}"
+                                    Click="ButtonSettings_OnClick">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Grid>
@@ -115,7 +116,7 @@
                                 </Button.Content>
                             </Button>
                             <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-                                    Style="{DynamicResource Main.SideButton}">
+                                    Style="{DynamicResource Main.SideButton}" Click="ButtonProfile_OnClick">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Path

@@ -1,17 +1,40 @@
 ﻿<Page x:Class="Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile.ProfilePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Jarvis" Width="965" Height="700">
+      Title="Jarvis" Width="965" Height="700" >
 
     <Page.Content>
-        <Grid x:Name="ProfileGrid" >
-            <StackPanel Margin="15,20,15,20">
-                <Label Content="Добро пожаловать" HorizontalAlignment="Center"/>
-                    <Label Content="Ваш логин:" FontSize="16" HorizontalAlignment="Center"/>
-                    <TextBox Width="200" FontSize="16" HorizontalAlignment="Center"/>
-                    <Label Content="Ваш пароль:" FontSize="16" HorizontalAlignment="Center"/>
-                    <TextBox Width="200" FontSize="16" HorizontalAlignment="Center"/>
+        <Grid x:Name="ProfileGrid" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Content="Выйти" Margin="10" Click="Logout_OnClick"></Button>
+            <Label Grid.Row="0" Grid.Column="2" Foreground="Black" HorizontalAlignment="Center" FontSize="28">Привет юзер </Label>
+            <StackPanel Grid.Column="2" Grid.Row="1">
+                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">Ваш айди: </Label>
+                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">Ваш юзернейм:</Label>
+                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">
+                    Подписка: (активна/не активна)
+                </Label>
+                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">
+                    Дата окончания: (если есть)
+                </Label>
             </StackPanel>
+            <Button Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Click="AddKey_OnClick">
+                Добавить ключ
+            </Button>            
         </Grid>
     </Page.Content>
 </Page>

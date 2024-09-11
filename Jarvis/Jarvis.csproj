@@ -259,6 +259,7 @@
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>
+        <Page Include="ProjectJarvis\Views\Pages\SidePanel\Profile\LoginPage.xaml" />
         <Page Include="ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
@@ -307,6 +308,9 @@
         </Compile>
         <Compile Include="ProjectJarvis\Views\Pages\SidePanel\Information\InformationPage.xaml.cs">
             <DependentUpon>InformationPage.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="ProjectJarvis\Views\Pages\SidePanel\Profile\LoginPage.xaml.cs">
+          <DependentUpon>LoginPage.xaml</DependentUpon>
         </Compile>
         <Compile Include="ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml.cs">
             <DependentUpon>ProfilePage.xaml</DependentUpon>

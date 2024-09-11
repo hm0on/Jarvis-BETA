@@ -14,6 +14,7 @@ using Jarvis.ProjectJarvis.Settings.AntiPiracy;
 using Jarvis.ProjectJarvis.Settings.ConfigurationManager;
 using Jarvis.ProjectJarvis.Settings.PathManager;
 using Jarvis.ProjectJarvis.Settings.VoiceAssistant;
+using Jarvis.ProjectJarvis.Services.Authentificate;
 
 namespace Jarvis
 {

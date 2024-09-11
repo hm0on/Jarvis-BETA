@@ -6,185 +6,172 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
-using log4net;
 
-namespace Jarvis.Project.Settings.AntiPiracy
+namespace Jarvis.ProjectJarvis.Settings.AntiPiracy;
+
+public static class AntiPiracyClass
 {
-    public static class AntiPiracyClass
+    // Проверка на то, первый ли это запуск программы
+    private const string RegistryKeyPath = @"SOFTWARE\LUX\Jarvis";
+    private const string RegistryValueName = "HasRunBefore";
+
+    private static async Task Main(string[] args)
     {
-        
-        static async Task Main(string[] args)
-        {
-            await GetHwid_MBox_Y();
-            await GetHwid_MBox_N();
-        }
+        await GetHwid_MBox_Y();
+        await GetHwid_MBox_N();
+    }
 
-        // Проверка на то, первый ли это запуск программы
-        private const string RegistryKeyPath = @"SOFTWARE\LUX\Jarvis";
-        private const string RegistryValueName = "HasRunBefore";
-
-        public static bool IsFirstRun()
+    public static bool IsFirstRun()
+    {
+        try
         {
-            
-            try
+            using (var key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, true))
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, true))
+                if (key != null)
                 {
-                    if (key != null)
-                    {
-                        object value = key.GetValue(RegistryValueName);
-                        if (value != null && value.ToString() == "1")
-                        {
-                            return false;  // Программа уже запускалась ранее
-                        }
-                    }
-                    else
-                    {
-                        using (RegistryKey newKey = Registry.CurrentUser.CreateSubKey(RegistryKeyPath))
-                        {
-                            if (newKey != null)
-                            {
-                                newKey.SetValue(RegistryValueName, "1");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ошибка при работе с реестром: " + ex.Message);
-            }
-            return true;  // Первый запуск программы
-        }
-
-
-
-        public static async Task GetHwid_MBox_Y()
-        {
-            string uuid = GetUuid();
-            if (uuid == null)
-            {
-                Console.WriteLine("Не удалось получить UUID");
-                return;
-            }
-
-            string hwid = GetMd5Hash(uuid);
-            string url = "https://docs.google.com/spreadsheets/d/1jz8hKO4EZfWou0uoSNBsG6EHkSe6-1LYDmzFcuS0dpw/export?format=csv";
-
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string data = await response.Content.ReadAsStringAsync();
-                    if (data.Contains(uuid))
-                    {
-                        MessageBox.Show("Защита от пиратства пройдена!");
-                    }
-                    else
-                    {
-                        Application.Current.Shutdown();
-                        MessageBox.Show("Похоже, что ваш ПК не зарегистрирован! Программа не будет запущена.");
-                    }
+                    var value = key.GetValue(RegistryValueName);
+                    if (value != null && value.ToString() == "1") return false; // Программа уже запускалась ранее
                 }
                 else
                 {
-                    Console.WriteLine("Не удалось получить данные");
+                    using (var newKey = Registry.CurrentUser.CreateSubKey(RegistryKeyPath))
+                    {
+                        if (newKey != null) newKey.SetValue(RegistryValueName, "1");
+                    }
                 }
             }
         }
-
-        public static async Task GetHwid_MBox_N()
+        catch (Exception ex)
         {
-            string uuid = GetUuid();
-            if (uuid == null)
-            {
-                Console.WriteLine("Не удалось получить UUID");
-                return;
-            }
+            Console.WriteLine("Ошибка при работе с реестром: " + ex.Message);
+        }
 
-            string hwid = GetMd5Hash(uuid);
-            string url = "https://docs.google.com/spreadsheets/d/1jz8hKO4EZfWou0uoSNBsG6EHkSe6-1LYDmzFcuS0dpw/export?format=csv";
+        return true; // Первый запуск программы
+    }
 
-            using (HttpClient client = new HttpClient())
+
+    public static async Task GetHwid_MBox_Y()
+    {
+        var uuid = GetUuid();
+        if (uuid == null)
+        {
+            Console.WriteLine("Не удалось получить UUID");
+            return;
+        }
+
+        var hwid = GetMd5Hash(uuid);
+        var url =
+            "https://docs.google.com/spreadsheets/d/1jz8hKO4EZfWou0uoSNBsG6EHkSe6-1LYDmzFcuS0dpw/export?format=csv";
+
+        using (var client = new HttpClient())
+        {
+            var response = await client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
+                var data = await response.Content.ReadAsStringAsync();
+                if (data.Contains(uuid))
                 {
-                    string data = await response.Content.ReadAsStringAsync();
-                    if (data.Contains(uuid))
-                    {
-                        // Ничего не выполняем что бы не мешать пользователю
-                    }
-                    else
-                    {
-                        Application.Current.Shutdown();
-                        MessageBox.Show("Похоже, что ваш ПК не зарегистрирован! Программа не будет запущена.");
-                    }
+                    MessageBox.Show("Защита от пиратства пройдена!");
                 }
                 else
                 {
                     Application.Current.Shutdown();
-                    MessageBox.Show("Не удалось получить данные");
+                    MessageBox.Show("Похоже, что ваш ПК не зарегистрирован! Программа не будет запущена.");
                 }
+            }
+            else
+            {
+                Console.WriteLine("Не удалось получить данные");
             }
         }
+    }
 
-
-        static string GetUuid()
+    public static async Task GetHwid_MBox_N()
+    {
+        var uuid = GetUuid();
+        if (uuid == null)
         {
-            string uuid = null;
-            try
-            {
-                Process p = new Process();
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.FileName = "cmd.exe";
-                p.StartInfo.Arguments = "/C " + "wmic csproduct get uuid";
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;  // Перенаправление ошибок
-                p.Start();
-                string output = p.StandardOutput.ReadToEnd();
-                string errorOutput = p.StandardError.ReadToEnd();  // Считывает весь вывод ошибок
-                p.WaitForExit();
-
-
-                if (!string.IsNullOrEmpty(errorOutput))
-                {
-                    Console.WriteLine("Ошибка при выполнении команды: " + errorOutput);
-                    return null;
-                }
-
-                // Console.WriteLine("Вывод команды: " + output);  // Вывод отладочной информации - ВКЛЮЧИТЬ ПРИ ОШИБКАХ
-
-
-                // Разбиваем вывод на строки и ищем строку с UUID
-                string[] lines = output.Trim().Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                if (lines.Length > 1)
-                {
-                    uuid = lines[1].Trim();  // Вторую строку
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ошибка при получении UUID: " + ex.Message);
-            }
-            return uuid;
+            Console.WriteLine("Не удалось получить UUID");
+            return;
         }
 
-        static string GetMd5Hash(string input)
+        var hwid = GetMd5Hash(uuid);
+        var url =
+            "https://docs.google.com/spreadsheets/d/1jz8hKO4EZfWou0uoSNBsG6EHkSe6-1LYDmzFcuS0dpw/export?format=csv";
+
+        using (var client = new HttpClient())
         {
-            using (MD5 md5 = MD5.Create())
+            var response = await client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
             {
-                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
-                byte[] hashBytes = md5.ComputeHash(inputBytes);
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < hashBytes.Length; i++)
+                var data = await response.Content.ReadAsStringAsync();
+                if (data.Contains(uuid))
                 {
-                    sb.Append(hashBytes[i].ToString("x2"));
+                    // Ничего не выполняем что бы не мешать пользователю
                 }
-                return sb.ToString();
+                else
+                {
+                    Application.Current.Shutdown();
+                    MessageBox.Show("Похоже, что ваш ПК не зарегистрирован! Программа не будет запущена.");
+                }
             }
+            else
+            {
+                Application.Current.Shutdown();
+                MessageBox.Show("Не удалось получить данные");
+            }
+        }
+    }
+
+
+    private static string GetUuid()
+    {
+        string uuid = null;
+        try
+        {
+            var p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.Arguments = "/C " + "wmic csproduct get uuid";
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true; // Перенаправление ошибок
+            p.Start();
+            var output = p.StandardOutput.ReadToEnd();
+            var errorOutput = p.StandardError.ReadToEnd(); // Считывает весь вывод ошибок
+            p.WaitForExit();
+
+
+            if (!string.IsNullOrEmpty(errorOutput))
+            {
+                Console.WriteLine("Ошибка при выполнении команды: " + errorOutput);
+                return null;
+            }
+
+            // Console.WriteLine("Вывод команды: " + output);  // Вывод отладочной информации - ВКЛЮЧИТЬ ПРИ ОШИБКАХ
+
+
+            // Разбиваем вывод на строки и ищем строку с UUID
+            var lines = output.Trim().Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            if (lines.Length > 1) uuid = lines[1].Trim(); // Вторую строку
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Ошибка при получении UUID: " + ex.Message);
+        }
+
+        return uuid;
+    }
+
+    private static string GetMd5Hash(string input)
+    {
+        using (var md5 = MD5.Create())
+        {
+            var inputBytes = Encoding.ASCII.GetBytes(input);
+            var hashBytes = md5.ComputeHash(inputBytes);
+            var sb = new StringBuilder();
+            for (var i = 0; i < hashBytes.Length; i++) sb.Append(hashBytes[i].ToString("x2"));
+            return sb.ToString();
         }
     }
 }

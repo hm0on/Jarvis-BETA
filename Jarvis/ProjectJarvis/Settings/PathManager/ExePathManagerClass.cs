@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
-using log4net;
-using System.Reflection;
 using Jarvis.ProjectJarvis.CommandsFolder;
+using log4net;
 
-
-namespace Jarvis.Project.Settings.PathManager;
+namespace Jarvis.ProjectJarvis.Settings.PathManager;
 
 public class ExePathManagerClass
 {
@@ -19,13 +19,13 @@ public class ExePathManagerClass
     {
         try
         {
-            string filePath = Properties.Settings.Default.ExePathsJsonPath;
+            var filePath = Properties.Settings.Default.ExePathsJsonPath;
             if (File.Exists(filePath))
             {
-                string jsonString = File.ReadAllText(filePath);
+                var jsonString = File.ReadAllText(filePath);
                 var options = new JsonSerializerOptions
                 {
-                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
                 };
                 return JsonSerializer.Deserialize<Dictionary<string, string>>(jsonString, options);
             }
@@ -45,17 +45,14 @@ public class ExePathManagerClass
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
-            string jsonString = JsonSerializer.Serialize(paths, options);
+            var jsonString = JsonSerializer.Serialize(paths, options);
 
-            string directoryPath = @"C:\Program Files\Jarvis\Resources";
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
+            var directoryPath = @"C:\Program Files\Jarvis\Resources";
+            if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
-            string filePath = Path.Combine(directoryPath, "exePaths.json");
+            var filePath = Path.Combine(directoryPath, "exePaths.json");
             File.WriteAllText(filePath, jsonString);
 
             log.Info($"[EXE PATH MANAGER]: Paths to exe files have been saved to '{filePath}'");
@@ -70,18 +67,16 @@ public class ExePathManagerClass
     {
         try
         {
-            foreach (string drive in Environment.GetLogicalDrives())
+            foreach (var drive in Environment.GetLogicalDrives())
             {
-                string path = SearchDirectory(drive, exeName);
-                if (!string.IsNullOrEmpty(path))
-                {
-                    return path;
-                }
+                var path = SearchDirectory(drive, exeName);
+                if (!string.IsNullOrEmpty(path)) return path;
             }
         }
         catch (Exception ex)
         {
-            log.Error($"[EXE PATH MANAGER]: Serching path`s: An error occurred while searching for '{exeName}': '{ex.Message}'");
+            log.Error(
+                $"[EXE PATH MANAGER]: Serching path`s: An error occurred while searching for '{exeName}': '{ex.Message}'");
         }
 
         return null;
@@ -91,19 +86,16 @@ public class ExePathManagerClass
     {
         try
         {
-            foreach (string file in Directory.GetFiles(directory, exeName, SearchOption.TopDirectoryOnly))
-            {
-                return file;
-            }
+            foreach (var file in Directory.GetFiles(directory, exeName, SearchOption.TopDirectoryOnly)) return file;
 
-            foreach (string subdirectory in Directory.GetDirectories(directory))
+            foreach (var subdirectory in Directory.GetDirectories(directory))
             {
-                if (subdirectory.StartsWith(@"C:\$RECYCLE.BIN") || subdirectory.StartsWith(@"C:\Windows") || subdirectory.StartsWith(@"D:\$RECYCLE.BIN") || subdirectory.StartsWith(@"D:\Windows") || subdirectory.StartsWith(@"E:\$RECYCLE.BIN") || subdirectory.StartsWith(@"E:\Windows") || subdirectory.StartsWith(@"F:\$RECYCLE.BIN") || subdirectory.StartsWith(@"F:\Windows"))
-                {
-                    continue;
-                }
+                if (subdirectory.StartsWith(@"C:\$RECYCLE.BIN") || subdirectory.StartsWith(@"C:\Windows") ||
+                    subdirectory.StartsWith(@"D:\$RECYCLE.BIN") || subdirectory.StartsWith(@"D:\Windows") ||
+                    subdirectory.StartsWith(@"E:\$RECYCLE.BIN") || subdirectory.StartsWith(@"E:\Windows") ||
+                    subdirectory.StartsWith(@"F:\$RECYCLE.BIN") || subdirectory.StartsWith(@"F:\Windows")) continue;
 
-                string path = SearchDirectory(subdirectory, exeName);
+                var path = SearchDirectory(subdirectory, exeName);
                 if (!string.IsNullOrEmpty(path))
                 {
                     log.Info($"[EXE PATH MANAGER]: Searching path`s. Found '{exeName}' in '{path}'");
@@ -117,7 +109,8 @@ public class ExePathManagerClass
         }
         catch (Exception ex)
         {
-            log.Error($"[EXE PATH MANAGER]: Searching path`s: An error occurred while searching in directory '{directory}': '{ex.Message}'");
+            log.Error(
+                $"[EXE PATH MANAGER]: Searching path`s: An error occurred while searching in directory '{directory}': '{ex.Message}'");
         }
 
         return null;
@@ -127,18 +120,14 @@ public class ExePathManagerClass
     {
         Parallel.ForEach(ExeCommandsClass.exeNameProgramms, kvp =>
         {
-            string path = FindExePath(kvp.Value);
+            var path = FindExePath(kvp.Value);
             if (!string.IsNullOrEmpty(path))
-            {
                 lock (exePaths)
                 {
                     exePaths[kvp.Value] = path;
                 }
-            }
             else
-            {
                 log.Warn($"[EXE PATH MANAGER]: Searching path`s: Path for the program {kvp.Value} not found.");
-            }
         });
 
         SavePathsToJson(exePaths);

@@ -1,16 +1,17 @@
 ﻿using System.Windows;
 using log4net;
+using log4net.Config;
 
-namespace Jarvis
+namespace Jarvis;
+
+public partial class App
 {
-    public partial class App : Application
+    private static readonly ILog Log = LogManager.GetLogger(typeof(App));
+
+    protected override void OnStartup(StartupEventArgs e)
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(App));
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            log4net.Config.XmlConfigurator.Configure();
-            log.Info("\n\n ============= Application Started ============= ");
-            base.OnStartup(e);
-        }
+        XmlConfigurator.Configure();
+        Log.Info("\n\n ============= Application Started ============= ");
+        base.OnStartup(e);
     }
 }

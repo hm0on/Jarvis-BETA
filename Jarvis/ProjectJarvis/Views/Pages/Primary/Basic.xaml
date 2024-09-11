@@ -1,30 +1,36 @@
 ﻿<Page x:Class="Jarvis.Project.Views.Pages.Primary.Basic"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:uc="clr-namespace:Jarvis.ProjectJarvis.Views.UserControls.Primary"
       Title="Jarvis" Width="965" Height="700">
 
     <Page.Content>
         <Grid x:Name="MainGrid">
             <Grid Width="511" Height="642" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,32,0,0">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="ОТВЕТЫ JARVIS" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="20"/>
+                    <TextBlock Text="ОТВЕТЫ JARVIS" Foreground="{DynamicResource Color.White}"
+                               FontFamily="{DynamicResource Font.SegoeUIVF}" FontWeight="SemiBold" FontSize="20" />
                     <Grid Width="511" Height="608" Margin="0,10,0,0">
-                        <Border Background="{DynamicResource Color.LightGray}" Opacity="0.05" CornerRadius="15"/>
-                        <StackPanel Orientation="Vertical" Margin="20,20,20,20">
-                            <uc:AnswerPointUC Message="Запрос пользователя" Color="{StaticResource Color.White}" Margin="0,0,0,2.5"/>
-                            <uc:AnswerPointUC Message="Ответ на запрос пользователя" Color="{StaticResource Color.Turquoise}" Margin="0,2.5,0,0"/>
-                        </StackPanel>
+                        <Border Background="{DynamicResource Color.LightGray}" Opacity="0.05" CornerRadius="15" />
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="20,20,20,20">
+                            <StackPanel x:Name="answerStackPanel" Orientation="Vertical">
+                                <!-- Здесь будут добавляться ответы -->
+                            </StackPanel>
+                        </ScrollViewer>
                     </Grid>
                 </StackPanel>
             </Grid>
 
             <Grid Margin="610,382,-287,-258">
-                <Ellipse Name="circle1" Width="120" Height="120" Fill="{DynamicResource Color.Blue}" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8"/>
-                <Ellipse Name="circle2" Width="170" Height="170" Fill="{DynamicResource Color.Blue}" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6"/>
-                <Ellipse Name="circle3" Width="220" Height="220" Fill="{DynamicResource Color.Blue}" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.4"/>
-                <Ellipse Name="circle4" Width="270" Height="270" Fill="{DynamicResource Color.Blue}" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.3"/>
-                <Ellipse Name="circle5" Width="340" Height="340" Fill="{DynamicResource Color.Blue}" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.2"/>
+                <Ellipse Name="circle1" Width="120" Height="120" Fill="{DynamicResource Color.Blue}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8" />
+                <Ellipse Name="circle2" Width="170" Height="170" Fill="{DynamicResource Color.Blue}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.6" />
+                <Ellipse Name="circle3" Width="220" Height="220" Fill="{DynamicResource Color.Blue}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.4" />
+                <Ellipse Name="circle4" Width="270" Height="270" Fill="{DynamicResource Color.Blue}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.3" />
+                <Ellipse Name="circle5" Width="340" Height="340" Fill="{DynamicResource Color.Blue}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.2" />
 
                 <!--<Grid Margin="691,423,-178,-150">
             <Path Data="M442.291 76.2859C529.092 104.482 583.517 182.318 620.812 265.577C658.683 350.12 684.485 444.854 644.894 528.581C603.442 616.243 516.372 677.037 420.2 689.831C329.486 701.899 245.209 653.582 178.842 590.581C117.075 531.947 83.1003 453.322 81.3958 368.213C79.5395 275.519 97.3018 177.256 169.396 118.939C244.684 58.0387 350.155 46.3562 442.291 76.2859Z" Fill="{DynamicResource Initial}" Opacity="0.2"/>

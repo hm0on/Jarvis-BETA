@@ -1,36 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Threading;
 using System.Net.Http;
-using WindowsInput;
 using System.Reflection;
 using System.Windows.Media;
 using log4net;
-using Jarvis.Project.Settings.ConfigurationManager;
 using Jarvis.Project.Services.VoskSpeechRecognition;
 using Jarvis.Project.Services.HttpClientFolder;
-using Jarvis.Project.Settings.PathManager;
-using Jarvis.Project.Settings.AntiPiracy;
-using Jarvis.Project.Settings.VoiceAssistant;
 using Jarvis.Project.Services.WindowUtilities;
+using Jarvis.ProjectJarvis.Settings.AntiPiracy;
+using Jarvis.ProjectJarvis.Settings.ConfigurationManager;
+using Jarvis.ProjectJarvis.Settings.PathManager;
+using Jarvis.ProjectJarvis.Settings.VoiceAssistant;
 
 namespace Jarvis
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private readonly VoskSpeechRecognition voskRecognizer;
-        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        public static bool ON_vcom = true;
+        private readonly VoskSpeechRecognition _voskRecognizer;
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static bool _onVcom = true;
 
-        private readonly Dictionary<string, string> exePaths = new Dictionary<string, string>();
-        private readonly ExePathManagerClass pathManager = new ExePathManagerClass();
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private readonly Dictionary<string, string> _exePaths;
+        private readonly ExePathManagerClass _pathManager = new();
 
         public MainWindow()
         {
@@ -38,20 +32,20 @@ namespace Jarvis
             {
                 InitializeComponent();
 
-                voskRecognizer = new VoskSpeechRecognition(Dispatcher);
+                _voskRecognizer = new VoskSpeechRecognition(Dispatcher);
 
                 ContentRendered += MainWindow_Loaded;
 
                 Thread.Sleep(1000);
 
                 log4net.Config.XmlConfigurator.Configure();
-                log.Info("[SYSTEM]: All assemblies have been loaded");
+                Log.Info("[SYSTEM]: All assemblies have been loaded");
 
 
                 SettingsManagerClass settingsManager = new SettingsManagerClass();
                 string city = settingsManager.Load();
 
-                log.Info("[WEATHER Parser]: User entered city: " + city);
+                Log.Info("[WEATHER Parser]: User entered city: " + city);
 
                 _ = WheaterClass.GetWeatherAsync(city);
 
@@ -59,14 +53,14 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"[SYSTEM]: An error occurred in Jarvis when loading assemblies: {ex.Message}");
+                Log.Error($"[SYSTEM]: An error occurred in Jarvis when loading assemblies: {ex.Message}");
             }
 
-            exePaths = ExePathManagerClass.LoadPathsFromJson();
+            _exePaths = ExePathManagerClass.LoadPathsFromJson();
 
-            if (exePaths.Count == 0)
+            if (_exePaths.Count == 0)
             {
-                pathManager.UpdateExePaths(exePaths);
+                _pathManager.UpdateExePaths(_exePaths);
             }
         }
 
@@ -74,8 +68,8 @@ namespace Jarvis
         {
             try
             {
-                string AssemblyDllPath = Properties.Settings.Default.AssemblyDllPath;
-                Assembly.LoadFrom(AssemblyDllPath);
+                string assemblyDllPath = Properties.Settings.Default.AssemblyDllPath;
+                Assembly.LoadFrom(assemblyDllPath);
             }
             catch
             {
@@ -86,7 +80,7 @@ namespace Jarvis
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            voskRecognizer?.Dispose();
+            _voskRecognizer?.Dispose();
         }
 
         public void CloseApplication(string processName)
@@ -97,7 +91,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"[SYSTEM]: Error when closing the process: {processName}. Error: {ex.Message}");
+                Log.Error($"[SYSTEM]: Error when closing the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -110,7 +104,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"[SYSTEM]: Error when minimizing the process: {processName}. Error: {ex.Message}");
+                Log.Error($"[SYSTEM]: Error when minimizing the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -123,7 +117,7 @@ namespace Jarvis
             }
             catch (Exception ex)
             {
-                log.Error($"[SYSTEM]: Error when restoring the process: {processName}. Error: {ex.Message}");
+                Log.Error($"[SYSTEM]: Error when restoring the process: {processName}. Error: {ex.Message}");
             }
         }
 
@@ -141,7 +135,7 @@ namespace Jarvis
             {
                 await WheaterClass.GetWeatherAsync(city);
 
-                new Project.Settings.ConfigurationManager.SettingsManagerClass(city).Save();
+                new SettingsManagerClass(city).Save();
                 SetErrorLabel("Город успешно сохранён!", "#7CFC00");
                 VoiceJarvisClass.JarvisVoiceYes();
             }
@@ -210,13 +204,13 @@ namespace Jarvis
                 if (AntiPiracyStatus == true)
                 {
                     await AntiPiracyClass.GetHwid_MBox_Y();
-                    log.Info("[ANTI PIRACY]: First run check: YES");
-                    log.Info("[ANTI PIRACY]: Mode: ON");
+                    Log.Info("[ANTI PIRACY]: First run check: YES");
+                    Log.Info("[ANTI PIRACY]: Mode: ON");
                 }
                 else
                 {
-                    log.Info("[ANTI PIRACY]: First run check: YES");
-                    log.Warn("[ANTI PIRACY]: Mode: OFF");
+                    Log.Info("[ANTI PIRACY]: First run check: YES");
+                    Log.Warn("[ANTI PIRACY]: Mode: OFF");
                 }
             }
             else
@@ -224,26 +218,26 @@ namespace Jarvis
                 if (AntiPiracyStatus == true)
                 {
                     await AntiPiracyClass.GetHwid_MBox_N();
-                    log.Info("[ANTI PIRACY]: First run check: NO");
-                    log.Info("[ANTI PIRACY]: Mode: ON");
+                    Log.Info("[ANTI PIRACY]: First run check: NO");
+                    Log.Info("[ANTI PIRACY]: Mode: ON");
                 }
                 else
                 {
-                    log.Info("[ANTI PIRACY]: First run check: YES");
-                    log.Warn("[ANTI PIRACY]: Mode: OFF");
+                    Log.Info("[ANTI PIRACY]: First run check: YES");
+                    Log.Warn("[ANTI PIRACY]: Mode: OFF");
                 }
             }
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("[SYSTEM]: Program shutdown: close button is pressed");
+            Log.Info("[SYSTEM]: Program shutdown: close button is pressed");
             Application.Current.Shutdown();
         }
 
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("[SYSTEM]: Minimize the program: minimize button is pressed");
+            Log.Info("[SYSTEM]: Minimize the program: minimize button is pressed");
             this.WindowState = WindowState.Minimized;
         }
 
@@ -251,12 +245,12 @@ namespace Jarvis
 
         private void Button_ON_Click(object sender, RoutedEventArgs e)
         {
-            ON_vcom = !ON_vcom;
+            _onVcom = !_onVcom;
         }
 
         public void UpdateExePathsManually()
         {
-            pathManager.UpdateExePaths(exePaths);
+            _pathManager.UpdateExePaths(_exePaths);
         }
     }
 }

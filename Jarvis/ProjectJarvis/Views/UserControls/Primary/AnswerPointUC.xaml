@@ -4,8 +4,9 @@
 
     <UserControl.Content>
         <StackPanel Orientation="Horizontal">
-            <Ellipse Width="14" Height="14" Margin="0,0,10,0" Fill="{Binding Color}"/>
-            <TextBlock Text="{Binding Message}" Foreground="{DynamicResource Color.White}" FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="14"/>
+            <Ellipse Width="14" Height="14" Margin="0,0,10,0" Fill="{Binding Color}" />
+            <TextBlock Text="{Binding Message}" Foreground="{DynamicResource Color.White}"
+                       FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="14" />
         </StackPanel>
     </UserControl.Content>
 </UserControl>

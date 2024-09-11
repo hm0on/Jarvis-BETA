@@ -4,7 +4,7 @@
       Title="Jarvis" Width="965" Height="700" >
 
     <Page.Content>
-        <Grid x:Name="ProfileGrid" ShowGridLines="True">
+        <Grid x:Name="ProfileGrid" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"></ColumnDefinition>
                 <ColumnDefinition Width="150"></ColumnDefinition>
@@ -21,14 +21,14 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Button Content="Выйти" Margin="10" Click="Logout_OnClick"></Button>
-            <Label Grid.Row="0" Grid.Column="2" Foreground="Black" HorizontalAlignment="Center" FontSize="28">Привет юзер </Label>
+            <Label Grid.Row="0" Grid.Column="2" Foreground="Azure" HorizontalAlignment="Center" FontSize="28">Привет юзер </Label>
             <StackPanel Grid.Column="2" Grid.Row="1">
-                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">Ваш айди: </Label>
-                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">Ваш юзернейм:</Label>
-                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">
+                <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20">Ваш айди: </Label>
+                <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20">Ваш юзернейм:</Label>
+                <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20">
                     Подписка: (активна/не активна)
                 </Label>
-                <Label Foreground="Black" HorizontalAlignment="Center" FontSize="20">
+                <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20">
                     Дата окончания: (если есть)
                 </Label>
             </StackPanel>

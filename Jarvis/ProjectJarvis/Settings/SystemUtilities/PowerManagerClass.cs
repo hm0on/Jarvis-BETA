@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Jarvis.Project.Settings.SystemUtilities;
+namespace Jarvis.ProjectJarvis.Settings.SystemUtilities;
 
 internal class PowerManagerClass
 {

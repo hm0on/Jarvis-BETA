@@ -1,7 +1,6 @@
 ﻿using Jarvis.ProjectJarvis.Model;
 using Newtonsoft.Json;
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 
@@ -9,7 +8,7 @@ namespace Jarvis.ProjectJarvis.Services.Authentificate
 {
     public class AuthentificateService: IAuthentificateService
     {
-        private const string Url = "http://127.0.0.1:80/";
+        private const string Url = "http://85.159.231.182/";
         private static readonly HttpClient Client = new() { BaseAddress = new Uri(Url) };
 
         public SessionDto Register(AuthUserDto userDto)
@@ -40,6 +39,7 @@ namespace Jarvis.ProjectJarvis.Services.Authentificate
             else
             {
                 throw new Exception(((int)response.StatusCode).ToString());
+                
             }
         }
 

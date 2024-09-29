@@ -1,6 +1,7 @@
 ﻿using Jarvis.ProjectJarvis.Model;
 using Newtonsoft.Json;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 
@@ -38,7 +39,7 @@ namespace Jarvis.ProjectJarvis.Services.Authentificate
             }
             else
             {
-                throw new Exception(response.StatusCode.ToString());
+                throw new Exception(((int)response.StatusCode).ToString());
             }
         }
 

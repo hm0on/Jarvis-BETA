@@ -21,7 +21,7 @@ namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile
     /// </summary>
     public partial class RegistrationPage : Page
     {
-        private readonly IAuthentificateService _authentificateService;
+        private IAuthentificateService _authentificateService;
         public RegistrationPage()
         {
             InitializeComponent();
@@ -39,6 +39,7 @@ namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile
 
                 try
                 {
+                    _authentificateService = new AuthentificateService();
                     _authentificateService.Login(user);
                 }
                 catch (Exception ex)
@@ -58,7 +59,8 @@ namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile
             try
             {
                 _authentificateService.Register(user);
-
+                NavigationService!.Navigate(
+                    new Uri(@"ProjectJarvis/Views/Pages/SidePanel/Profile/ProfilePage.xaml", UriKind.Relative));
             }
             catch (Exception ex)
             {

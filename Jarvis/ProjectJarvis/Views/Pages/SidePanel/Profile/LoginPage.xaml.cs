@@ -2,9 +2,10 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using  Jarvis.ProjectJarvis.Services.Authentificate;
-using  Jarvis.ProjectJarvis.Model;
+using Jarvis.ProjectJarvis.Services.Authentificate;
+using Jarvis.ProjectJarvis.Model;
 using Newtonsoft.Json;
+
 
 namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile;
 

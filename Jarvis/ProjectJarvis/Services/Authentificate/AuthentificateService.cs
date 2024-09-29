@@ -15,7 +15,6 @@ namespace Jarvis.ProjectJarvis.Services.Authentificate
         {
             var content = JsonContent.Create(userDto);
             using var response = Client.PostAsync("api/account/register", content).Result;
-            Console.WriteLine("Регистрация");
             if (response.IsSuccessStatusCode)
             {
                 var session = response.Content.ReadFromJsonAsync<SessionDto>().Result!;
@@ -39,7 +38,7 @@ namespace Jarvis.ProjectJarvis.Services.Authentificate
             }
             else
             {
-                throw new Exception("Error: " + response.ReasonPhrase);
+                throw new Exception(response.StatusCode.ToString());
             }
         }
 

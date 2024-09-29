@@ -38,7 +38,9 @@ public partial class ProfilePage : Page
             UsernameLabel.Content += user.Username;
             if (user.ExpiredTime == null) SubscribeLabel.Content += "Не активна";
             else SubscribeLabel.Content += "Активна";
-            SubscribeLabel.Content += user.ExpiredTime!.Value.Date.ToString("dd.MMMM.yyyy");
+
+            if (user.ExpiredTime != null)
+                SubscribeLabel.Content += user.ExpiredTime.Value.Date.ToString("dd.MMMM.yyyy");
         }
     }
 

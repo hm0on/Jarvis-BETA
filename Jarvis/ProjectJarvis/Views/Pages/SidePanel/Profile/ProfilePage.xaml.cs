@@ -36,11 +36,15 @@ public partial class ProfilePage : Page
 
             IdLabel.Content += user.Id.ToString();
             UsernameLabel.Content += user.Username;
-            if (user.ExpiredTime == null) SubscribeLabel.Content += "Не активна";
-            else SubscribeLabel.Content += "Активна";
+            if (user.ExpiredTime == null) SubscribeLabel.Content += " Не активна";
+            else SubscribeLabel.Content += " Активна";
 
             if (user.ExpiredTime != null)
-                SubscribeLabel.Content += user.ExpiredTime.Value.Date.ToString("dd.MMMM.yyyy");
+                EndDateLabel.Content += user.ExpiredTime.Value.Date.ToString("dd.MMMM.yyyy");
+            else
+            {
+                EndDateLabel.Visibility = Visibility.Collapsed;
+            }
         }
     }
 

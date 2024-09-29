@@ -30,8 +30,8 @@
                 <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20" x:Name="SubscribeLabel">
                     Подписка: 
                 </Label>
-                <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20">
-                    Дата окончания: (если есть)
+                <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20" x:Name="EndDateLabel">
+                    Дата окончания: 
                 </Label>
             </StackPanel>
             <Button Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Click="AddKey_OnClick">

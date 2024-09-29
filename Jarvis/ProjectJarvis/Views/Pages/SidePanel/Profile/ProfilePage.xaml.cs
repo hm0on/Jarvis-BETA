@@ -40,7 +40,7 @@ public partial class ProfilePage : Page
             else SubscribeLabel.Content += " Активна";
 
             if (user.ExpiredTime != null)
-                EndDateLabel.Content += user.ExpiredTime.Value.Date.ToString("dd.MMMM.yyyy");
+                EndDateLabel.Content += user.ExpiredTime.Value.Date.ToString("dd MMMM yyyy");
             else
             {
                 EndDateLabel.Visibility = Visibility.Collapsed;

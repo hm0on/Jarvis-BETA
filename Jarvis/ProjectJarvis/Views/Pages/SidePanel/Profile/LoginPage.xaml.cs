@@ -32,7 +32,9 @@ public partial class LoginPage : Page
                 Password = password
             });
             File.WriteAllText("session.json", JsonConvert.SerializeObject(session));
-            NavigationService!.Navigate(new ProfilePage());
+            NavigationService!.Navigate(new Uri(
+                @"ProjectJarvis/Views/Pages/SidePanel/Profile/ProfilePage.xaml", UriKind.Relative
+            ));
         }
         catch (Exception exception)
         {

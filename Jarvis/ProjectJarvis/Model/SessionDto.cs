@@ -27,10 +27,17 @@ public class SessionDto
         SessionUserId = sessionUserId;
     }
 
-    public SessionDto GetSession()
+    public static SessionDto GetSession()
     {
-        var session = JsonConvert.DeserializeObject<SessionDto>(File.ReadAllText("session.json"));
-        return session!;
+        if (File.Exists("session.json"))
+        {
+            var session = JsonConvert.DeserializeObject<SessionDto>(File.ReadAllText("session.json"));
+            return session;
+        }
+        else
+        {
+            throw new ValidationException();
+        }
     }
 
     public void Delete()

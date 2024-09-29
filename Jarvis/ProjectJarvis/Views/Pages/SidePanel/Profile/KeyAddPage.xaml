@@ -1,0 +1,19 @@
+﻿<Page x:Class="Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile.KeyAddPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile"
+      mc:Ignorable="d" Title="KeyAddPage" Width="965" Height="700">
+    <Grid>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="White" Content="Назад"
+                Background="Transparent" Margin="20" Click="Back_OnClick"></Button>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label  HorizontalAlignment="Center" Foreground="White">Введите ваш ключ активации</Label>
+            <TextBox Width="200">
+            </TextBox>
+            <Button  Foreground="White" Content="Зарегистрировать"
+                    Background="Transparent" Margin="20" Click="RegisterKey_OnClick"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

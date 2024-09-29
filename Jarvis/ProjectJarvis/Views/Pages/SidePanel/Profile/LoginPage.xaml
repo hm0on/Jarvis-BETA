@@ -1,18 +1,19 @@
 ﻿<Page x:Class="Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Jarvis" Width="965" Height="700" >
+      Title="Jarvis" Width="965" Height="700">
 
     <Page.Content>
         <Grid x:Name="ProfileGrid" >
             <StackPanel Margin="15,20,15,20">
+                <TextBlock Name="ErrorBlock" Foreground="Red"></TextBlock>
                 <Label Content="Добро пожаловать" HorizontalAlignment="Center"/>
                 <Label Content="Ваш логин:" FontSize="16" HorizontalAlignment="Center" Foreground="Azure"/>
                 <TextBox BorderBrush="Azure" Width="200" FontSize="16" HorizontalAlignment="Center" Name="LoginBox"/>
                 <Label Content="Ваш пароль:" FontSize="16" HorizontalAlignment="Center" Foreground="Azure"/>
                 <TextBox BorderBrush="Azure" Width="200" FontSize="16" HorizontalAlignment="Center" Name="PassBox"/>
-                <Button Width="200">Вход</Button>
-                <Button Background="Transparent" HorizontalAlignment="Center" >
+                <Button Width="200" Click="LoginButton_OnClick">Вход</Button>
+                <Button Background="Transparent" HorizontalAlignment="Center" Click="ToRegister_OnClick">
                     <TextBlock FontSize="8" Foreground="DeepSkyBlue">
                         Не зарегистрированы? Регистрация
                     </TextBlock>

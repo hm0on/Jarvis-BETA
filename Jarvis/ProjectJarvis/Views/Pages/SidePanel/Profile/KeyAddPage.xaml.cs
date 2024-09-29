@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Jarvis.ProjectJarvis.Model;
+using Jarvis.ProjectJarvis.Services.Authentificate;
+using NAudio.CoreAudioApi.Interfaces;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -6,6 +9,8 @@ namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile;
 
 public partial class KeyAddPage : Page
 {
+    private IAuthentificateService _authentificateService;
+
     public KeyAddPage()
     {
         InitializeComponent();
@@ -21,6 +26,25 @@ public partial class KeyAddPage : Page
 
     private void RegisterKey_OnClick(object sender, RoutedEventArgs e)
     {
+        _authentificateService = new AuthentificateService();
+        try
+        {
+            var session = SessionDto.GetSession();
+
+            if (KeyText.Text == string.Empty || !Guid.TryParse(KeyText.Text, out var result))
+            {
+                MessageBox.Show("Неправильный формат Токена");
+                return;
+            }
         
+            _authentificateService.AddKey(session, result.ToString());
+            NavigationService!.Navigate(new Uri(
+                @"ProjectJarvis/Views/Pages/SidePanel/Profile/ProfilePage.xaml", UriKind.Relative
+            ));
+        }
+        catch (Exception ex)
+        {
+            new Exception(ex.Message);
+        }
     }
 }

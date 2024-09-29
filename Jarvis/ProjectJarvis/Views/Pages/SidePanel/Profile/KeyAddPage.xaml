@@ -10,7 +10,7 @@
                 Background="Transparent" Margin="20" Click="Back_OnClick"></Button>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label  HorizontalAlignment="Center" Foreground="White">Введите ваш ключ активации</Label>
-            <TextBox Width="200">
+            <TextBox Width="200" Name="KeyText">
             </TextBox>
             <Button  Foreground="White" Content="Зарегистрировать"
                     Background="Transparent" Margin="20" Click="RegisterKey_OnClick"></Button>

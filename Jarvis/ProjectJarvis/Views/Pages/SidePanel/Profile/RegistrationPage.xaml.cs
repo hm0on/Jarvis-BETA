@@ -50,6 +50,7 @@ namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile
                         RegistrationProcess(user);
                     else
                     {
+                        MessageBox.Show(ex.Message);
                         new Exception(ex.Message);
                     }
                 }

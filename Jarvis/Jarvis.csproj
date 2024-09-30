@@ -253,6 +253,7 @@
     <Compile Include="ProjectJarvis\Configuration\Commands\UrlCommandsClass.cs" />
     <Compile Include="ProjectJarvis\Services\Authentificate\AuthentificateService.cs" />
     <Compile Include="ProjectJarvis\Services\Authentificate\IAuthentificateService.cs" />
+    <Compile Include="ProjectJarvis\Services\GetWorkingButtons\GetWorkingButtonsService.cs" />
     <Compile Include="ProjectJarvis\Services\HttpClientFolder\WheaterClass.cs" />
     <Compile Include="ProjectJarvis\Services\Recognition\VoskRecognition.cs" />
     <Compile Include="ProjectJarvis\Services\Recognition\VoskWrapper.cs" />

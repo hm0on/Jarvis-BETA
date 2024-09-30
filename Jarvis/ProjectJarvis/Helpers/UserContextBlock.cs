@@ -24,6 +24,8 @@ public static class UserContextBlock
             }
             return false;
         }
+
+        return true;
     }
     
     
@@ -36,10 +38,6 @@ public static class UserContextBlock
             {
                 UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, UnBlockUserContext);
             }
-        }
-        else
-        {
-            return true;
         }
     }
 

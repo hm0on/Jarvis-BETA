@@ -10,7 +10,7 @@ namespace Jarvis.ProjectJarvis.Helpers;
 
 public static class UserContextBlock
 {
-    public static void BlockUserContext()
+    public static bool BlockUserContext()
     {
         if (AccountActiveFlag() == false)
         {
@@ -19,11 +19,11 @@ public static class UserContextBlock
             {
                 UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, ChangeUserContext);
             }
-            return;
+            return false;
         }
         else
         {
-            return;
+            return true;
         }
     }
 
@@ -53,6 +53,6 @@ public static class UserContextBlock
     private static void ChangeUserContext(Button button)
     {
         button.IsEnabled = false;
-        button.Foreground = new SolidColorBrush(Colors.Red);
+        button.Background = new SolidColorBrush(Color.FromArgb(255, 150, 0, 0));
     }
 }

@@ -6,11 +6,14 @@ using System.Windows;
 using System.Windows.Media;
 using Button = System.Windows.Controls.Button;
 using Jarvis.Assets;
+using Jarvis.Project.Services.VoskSpeechRecognition;
 
 namespace Jarvis.ProjectJarvis.Helpers;
 
 public static class UserContextBlock
 {
+    public static bool VoskRecordingFlag = false;
+
     public static bool BlockUserContext()
     {
         if (!AccountActiveFlag())
@@ -20,6 +23,9 @@ public static class UserContextBlock
             {
                 UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, BlockUserContent);
             }
+
+            VoskSpeechRecognition.waveIn?.StopRecording();
+            VoskRecordingFlag = false;
             return false;
         }
 
@@ -35,6 +41,11 @@ public static class UserContextBlock
             foreach (var button in buttonList)
             {
                 UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, UnBlockUserContent);
+            }
+            if (!VoskRecordingFlag)
+            {
+                VoskSpeechRecognition.waveIn?.StartRecording();
+                VoskRecordingFlag = true;
             }
         }
     }

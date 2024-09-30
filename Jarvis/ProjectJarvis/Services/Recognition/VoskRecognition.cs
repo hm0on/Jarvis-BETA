@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using Jarvis.Project.Views.Pages.Primary;
 using Jarvis.ProjectJarvis;
+using Jarvis.ProjectJarvis.Helpers;
 
 namespace Jarvis.Project.Services.VoskSpeechRecognition
 {
@@ -27,7 +28,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
         
         private readonly Dispatcher _dispatcher;
         private VoskWrapper vosk;
-        private WaveInEvent waveIn;
+        public static WaveInEvent waveIn;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public enum RecognitionMode
@@ -70,6 +71,7 @@ namespace Jarvis.Project.Services.VoskSpeechRecognition
             waveIn.WaveFormat = new WaveFormat(16000, 1);
             waveIn.DataAvailable += WaveIn_DataAvailable;
             waveIn.StartRecording();
+            UserContextBlock.VoskRecordingFlag = true;
 
             log.Info("[VOSK]: Successful initialization. The VOSK model has been successfully initialized.");
         }

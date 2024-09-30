@@ -2,10 +2,8 @@
 using Jarvis.ProjectJarvis.Services.Authentificate;
 using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
-using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using Button = System.Windows.Controls.Button;
 using Jarvis.Assets;
 
@@ -15,12 +13,12 @@ public static class UserContextBlock
 {
     public static bool BlockUserContext()
     {
-        if (AccountActiveFlag() == false)
+        if (!AccountActiveFlag())
         {
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
             {
-                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, ChangeUserContext);
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, BlockUserContent);
             }
             return false;
         }
@@ -31,12 +29,12 @@ public static class UserContextBlock
     
     public static void UnBlockUserContext()
     {
-        if (AccountActiveFlag() == false)
+        if (AccountActiveFlag())
         {
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
             {
-                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, UnBlockUserContext);
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, UnBlockUserContent);
             }
         }
     }
@@ -51,7 +49,7 @@ public static class UserContextBlock
             var user = _authentificateService.GetMe(session);
             var dateTime = user.ExpiredTime;
 
-            if (dateTime < DateTime.UtcNow)
+            if (dateTime == null || dateTime < DateTime.UtcNow)
             {
                 return false;
             }
@@ -64,13 +62,13 @@ public static class UserContextBlock
         }
     }
 
-    private static void ChangeUserContext(Button button)
+    private static void BlockUserContent(Button button)
     {
         button.IsEnabled = false;
         button.Background = new SolidColorBrush(Color.FromArgb(255, 150, 0, 0));
     }
     
-    private static void UnBlockUserContext(Button button)
+    private static void UnBlockUserContent(Button button)
     {
         button.IsEnabled = true;
         ResourceDictionary resourceDictionary = new ResourceDictionary();

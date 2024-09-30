@@ -40,14 +40,15 @@ namespace Jarvis
 
                 InitDataStart();
 
-                if (!UserContextBlock.BlockUserContext())
-                {
-                    MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml", UriKind.Relative));
-                }
             }
             catch (Exception ex)
             {
                 Log.Error($"[SYSTEM]: An error occurred in Jarvis when loading assemblies: {ex.Message}");
+            }
+
+            if (!UserContextBlock.BlockUserContext())
+            {
+                MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml", UriKind.Relative));
             }
 
             _exePaths = ExePathManagerClass.LoadPathsFromJson();

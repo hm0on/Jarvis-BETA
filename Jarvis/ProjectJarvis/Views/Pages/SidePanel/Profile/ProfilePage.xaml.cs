@@ -7,6 +7,7 @@ using Jarvis.ProjectJarvis.Services.Authentificate;
 using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using Jarvis.ProjectJarvis.Model;
 using Jarvis.ProjectJarvis.Helpers;
+using System.IO;
 namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile;
 
 public partial class ProfilePage : Page
@@ -83,8 +84,15 @@ public partial class ProfilePage : Page
             @"ProjectJarvis/Views/Pages/SidePanel/Profile/LoginPage.xaml", UriKind.Relative
             )
         );
-        
-        UserContextBlock.BlockUserContext();
 
+        try
+        {
+            File.Delete("session.json");
+            UserContextBlock.BlockUserContext();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 }

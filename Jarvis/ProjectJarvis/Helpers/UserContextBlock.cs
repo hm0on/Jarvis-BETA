@@ -70,9 +70,17 @@ public static class UserContextBlock
     
     private static void UnBlockUserContent(Button button)
     {
-        button.IsEnabled = true;
-        ResourceDictionary resourceDictionary = new ResourceDictionary();
-        resourceDictionary.Source = new Uri("ProjectJarvis/Views/StylesDictionary/ButtonsDictionary.xaml", UriKind.Relative);
-        button.Style = (Style)resourceDictionary["Main.SideButton"];
+        try
+        {
+            button.IsEnabled = true;
+            ResourceDictionary resourceDictionary = new ResourceDictionary();
+            resourceDictionary.Source = new Uri("ProjectJarvis/Views/StylesDictionary/ButtonsDictionary.xaml", UriKind.Relative);
+            button.Style = (Style)resourceDictionary["Main.SideButton"];
+            button.Background = new SolidColorBrush(Color.FromRgb(20, 20, 20));
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 }

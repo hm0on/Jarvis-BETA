@@ -1,20 +1,11 @@
 ﻿using Jarvis.ProjectJarvis.Model;
 using Jarvis.ProjectJarvis.Services.Authentificate;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Newtonsoft.Json;
+using Jarvis.ProjectJarvis.Helpers;
 
 namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile
 {
@@ -63,6 +54,7 @@ namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile
             {
                 SessionDto sessionDto = _authentificateService.Register(user);
                 File.WriteAllText("session.json", JsonConvert.SerializeObject(sessionDto));
+                UserContextBlock.UnBlockUserContext();
                 NavigationService!.Navigate(
                     new Uri(@"ProjectJarvis/Views/Pages/SidePanel/Profile/ProfilePage.xaml", UriKind.Relative));
             }

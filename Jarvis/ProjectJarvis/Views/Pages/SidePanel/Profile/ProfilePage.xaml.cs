@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Jarvis.ProjectJarvis.Services.Authentificate;
-using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using Jarvis.ProjectJarvis.Model;
 using Jarvis.ProjectJarvis.Helpers;
 namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile;
@@ -79,12 +80,12 @@ public partial class ProfilePage : Page
 
     private void Logout_OnClick(object sender, RoutedEventArgs e)
     {
+        File.Delete("session.json");
+        UserContextBlock.BlockUserContext();
         NavigationService!.Navigate(new Uri(
             @"ProjectJarvis/Views/Pages/SidePanel/Profile/LoginPage.xaml", UriKind.Relative
             )
         );
-        
-        UserContextBlock.BlockUserContext();
 
     }
 }

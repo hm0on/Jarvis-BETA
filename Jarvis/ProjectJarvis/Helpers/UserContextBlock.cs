@@ -15,7 +15,7 @@ public static class UserContextBlock
 {
     public static bool BlockUserContext()
     {
-        if (AccountActiveFlag() == false)
+        if (!AccountActiveFlag())
         {
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
@@ -31,7 +31,7 @@ public static class UserContextBlock
     
     public static void UnBlockUserContext()
     {
-        if (AccountActiveFlag() == false)
+        if (AccountActiveFlag())
         {
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
@@ -51,7 +51,7 @@ public static class UserContextBlock
             var user = _authentificateService.GetMe(session);
             var dateTime = user.ExpiredTime;
 
-            if (dateTime < DateTime.UtcNow)
+            if (dateTime == null | dateTime < DateTime.UtcNow)
             {
                 return false;
             }

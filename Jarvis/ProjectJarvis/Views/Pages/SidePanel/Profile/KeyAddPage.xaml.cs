@@ -4,6 +4,7 @@ using NAudio.CoreAudioApi.Interfaces;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using Jarvis.ProjectJarvis.Helpers;
 
 namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile;
 
@@ -38,6 +39,7 @@ public partial class KeyAddPage : Page
             }
         
             _authentificateService.AddKey(session, result.ToString());
+            UserContextBlock.UnBlockUserContext();
             NavigationService!.Navigate(new Uri(
                 @"ProjectJarvis/Views/Pages/SidePanel/Profile/ProfilePage.xaml", UriKind.Relative
             ));

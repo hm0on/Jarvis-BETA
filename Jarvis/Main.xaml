@@ -16,7 +16,7 @@
             <Grid Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="65"
                   MouseLeftButtonDown="Header_MouseLeftButtonDown" />
 
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0" Name="ControlFrame">
                 <Grid Margin="20,30,0,0">
                     <StackPanel Orientation="Vertical">
                         <Path

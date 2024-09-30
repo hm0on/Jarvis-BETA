@@ -5,11 +5,11 @@
 
     <Page.Content>
         
-        <Grid x:Name="ProfileGrid" ShowGridLines="False">
+        <Grid x:Name="ProfileGrid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"></ColumnDefinition>
-                <ColumnDefinition Width="150"></ColumnDefinition>
-                <ColumnDefinition Width="350"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="765"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -22,8 +22,8 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Button Content="Выйти" Margin="10" Click="Logout_OnClick"></Button>
-            <Label Grid.Row="0" Grid.Column="2" Foreground="Azure" HorizontalAlignment="Center" FontSize="28">Привет юзер </Label>
-            <StackPanel Grid.Column="2" Grid.Row="1">
+            <Label Grid.Row="0" Grid.Column="1" Foreground="Azure" HorizontalAlignment="Center" FontSize="28">Привет юзер </Label>
+            <StackPanel Grid.Column="1" Grid.Row="1">
                 <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20" x:Name="IdLabel">Ваш айди: </Label>
                 <Label Foreground="Azure" HorizontalAlignment="Center" FontSize="20" 
                        x:Name="UsernameLabel">Ваш юзернейм:</Label>
@@ -34,7 +34,7 @@
                     Дата окончания: 
                 </Label>
             </StackPanel>
-            <Button Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Click="AddKey_OnClick">
+            <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Click="AddKey_OnClick">
                 Добавить ключ
             </Button>            
         </Grid>

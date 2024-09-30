@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Jarvis.ProjectJarvis.Services.Authentificate;
+using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using Jarvis.ProjectJarvis.Model;
+using Jarvis.ProjectJarvis.Helpers;
 namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile;
 
 public partial class ProfilePage : Page
@@ -59,6 +61,7 @@ public partial class ProfilePage : Page
         {
             var session = SessionDto.GetSession();
             LoadUser(session);
+            UserContextBlock.UnBlockUserContext();
         }
         catch (ValidationException)
         {
@@ -81,6 +84,7 @@ public partial class ProfilePage : Page
             )
         );
         
+        UserContextBlock.BlockUserContext();
 
     }
 }

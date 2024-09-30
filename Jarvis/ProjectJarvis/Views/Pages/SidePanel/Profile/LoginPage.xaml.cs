@@ -35,6 +35,7 @@ public partial class LoginPage : Page
             NavigationService!.Navigate(new Uri(
                 @"ProjectJarvis/Views/Pages/SidePanel/Profile/ProfilePage.xaml", UriKind.Relative
             ));
+            
         }
         catch (Exception exception)
         {

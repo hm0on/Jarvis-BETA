@@ -1,10 +1,12 @@
 ﻿using Jarvis.ProjectJarvis.Model;
 using Jarvis.ProjectJarvis.Services.Authentificate;
-using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
+using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using Button = System.Windows.Controls.Button;
+using Jarvis.Assets;
 
 namespace Jarvis.ProjectJarvis.Helpers;
 
@@ -17,9 +19,25 @@ public static class UserContextBlock
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
             {
-                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, ChangeUserContext);
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, BlockUserContext);
             }
+        }
+        else
+        {
             return;
+        }
+    }
+    
+    
+    public static void UnBlockUserContext()
+    {
+        if (AccountActiveFlag() == false)
+        {
+            var buttonList = ButtonListClass.ButtonList;
+            foreach (var button in buttonList)
+            {
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, UnBlockUserContext);
+            }
         }
         else
         {
@@ -50,9 +68,17 @@ public static class UserContextBlock
         }
     }
 
-    private static void ChangeUserContext(Button button)
+    private static void BlockUserContext(Button button)
     {
         button.IsEnabled = false;
         button.Foreground = new SolidColorBrush(Colors.Red);
+    }
+    
+    private static void UnBlockUserContext(Button button)
+    {
+        button.IsEnabled = true;
+        ResourceDictionary resourceDictionary = new ResourceDictionary();
+        resourceDictionary.Source = new Uri("ProjectJarvis/Views/StylesDictionary/ButtonsDictionary.xaml", UriKind.Relative);
+        button.Style = (Style)resourceDictionary["Main.SideButton"];
     }
 }

@@ -37,10 +37,7 @@ namespace Jarvis
 
                 ContentRendered += MainWindow_Loaded;
 
-
-
                 InitDataStart();
-
 
 
             }
@@ -73,35 +70,6 @@ namespace Jarvis
 
             _ = WheaterClass.GetWeatherAsync(city);
         }
-
-        private void BlockUserContext()
-        {
-            MainFrame.
-        }
-
-
-        private bool AccountActiveFlag()
-        {
-            try
-            {
-                var session = SessionDto.GetSession();
-                var user = _authentificateService.GetMe(session);
-                var dateTime = user.ExpiredTime;
-
-                if (dateTime < DateTime.UtcNow)
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch
-            {
-
-                return false;
-            }
-        }
-
-
 
         private static void PreloadAccessibilityAssembly()
         {

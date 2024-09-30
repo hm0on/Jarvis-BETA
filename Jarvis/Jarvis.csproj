@@ -239,6 +239,7 @@
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProjectJarvis\Helpers\UserContextBlock.cs" />
     <Compile Include="ProjectJarvis\Model\SessionDto.cs" />
     <Compile Include="ProjectJarvis\Model\UserDto.cs" />
     <Compile Include="ProjectJarvis\Resources\SpeechDictionaries\ActionsListClass.cs" />

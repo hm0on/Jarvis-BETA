@@ -46,8 +46,9 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-                                    Style="{DynamicResource Main.SideButton}" Click="ButtonInformation_OnClick">
+                            <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left" 
+                                    x:Name="InformationGridButton" Style="{DynamicResource Main.SideButton}" 
+                                    Click="ButtonInformation_OnClick">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Path
@@ -62,7 +63,8 @@
                                 </Button.Content>
                             </Button>
                             <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-                                    Style="{DynamicResource Main.SideButton}" Click="ButtonCommandsList_OnClick">
+                                    Style="{DynamicResource Main.SideButton}" Click="ButtonCommandsList_OnClick"
+                                    x:Name="CommandListButton">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Grid>
@@ -117,7 +119,8 @@
                                 </Button.Content>
                             </Button>
                             <Button HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-                                    Style="{DynamicResource Main.SideButton}" Click="ButtonProfile_OnClick">
+                                    Style="{DynamicResource Main.SideButton}" Click="ButtonProfile_OnClick"
+                                    x:Name="ProfileButton">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                                         <Path
@@ -126,7 +129,7 @@
                                         <TextBlock Text="Профиль" HorizontalAlignment="Center"
                                                    VerticalAlignment="Center" Margin="10,0,0,0"
                                                    Foreground="{DynamicResource Color.White}"
-                                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18" />
+                                                   FontFamily="{DynamicResource Font.SegoeUIVF}" FontSize="18"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>

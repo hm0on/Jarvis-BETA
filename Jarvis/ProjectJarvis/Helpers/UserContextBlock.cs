@@ -1,5 +1,6 @@
 ﻿using Jarvis.ProjectJarvis.Model;
 using Jarvis.ProjectJarvis.Services.Authentificate;
+using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using System;
 using System.Collections.Generic;
 using System.Windows.Media;
@@ -9,12 +10,15 @@ namespace Jarvis.ProjectJarvis.Helpers;
 
 public static class UserContextBlock
 {
-    private static void BlockUserContext()
+    public static void BlockUserContext()
     {
         if (AccountActiveFlag() == false)
         {
-            var buttonList = //todo
-            ChangeUserContext(buttonList);
+            var buttonList = ButtonListClass.ButtonList;
+            foreach (var button in buttonList)
+            {
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, ChangeUserContext);
+            }
             return;
         }
         else
@@ -46,12 +50,9 @@ public static class UserContextBlock
         }
     }
 
-    private static void ChangeUserContext(List<Button> buttonList)
+    private static void ChangeUserContext(Button button)
     {
-        foreach (var button in buttonList)
-        {
-            button.IsEnabled = false;
-            button.Foreground = new SolidColorBrush(Colors.Red);
-        }
+        button.IsEnabled = false;
+        button.Foreground = new SolidColorBrush(Colors.Red);
     }
 }

@@ -16,6 +16,7 @@ using Jarvis.ProjectJarvis.Settings.PathManager;
 using Jarvis.ProjectJarvis.Settings.VoiceAssistant;
 using Jarvis.ProjectJarvis.Services.Authentificate;
 using Jarvis.ProjectJarvis.Model;
+using Jarvis.ProjectJarvis.Helpers;
 
 namespace Jarvis
 {
@@ -39,7 +40,7 @@ namespace Jarvis
 
                 InitDataStart();
 
-
+                UserContextBlock.BlockUserContext();
             }
             catch (Exception ex)
             {

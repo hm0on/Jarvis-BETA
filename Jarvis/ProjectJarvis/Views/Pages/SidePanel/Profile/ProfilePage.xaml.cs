@@ -50,7 +50,6 @@ public partial class ProfilePage : Page
     public ProfilePage()
     {
         InitializeComponent();
-        
     }
 
     protected override void OnRender(DrawingContext drawingContext)

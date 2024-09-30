@@ -1,5 +1,6 @@
 ﻿using Jarvis.ProjectJarvis.Model;
 using Jarvis.ProjectJarvis.Services.Authentificate;
+using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -12,19 +13,16 @@ namespace Jarvis.ProjectJarvis.Helpers;
 
 public static class UserContextBlock
 {
-    public static void BlockUserContext()
+    public static bool BlockUserContext()
     {
         if (AccountActiveFlag() == false)
         {
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
             {
-                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, BlockUserContext);
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, ChangeUserContext);
             }
-        }
-        else
-        {
-            return;
+            return false;
         }
     }
     
@@ -41,7 +39,7 @@ public static class UserContextBlock
         }
         else
         {
-            return;
+            return true;
         }
     }
 
@@ -68,10 +66,10 @@ public static class UserContextBlock
         }
     }
 
-    private static void BlockUserContext(Button button)
+    private static void ChangeUserContext(Button button)
     {
         button.IsEnabled = false;
-        button.Foreground = new SolidColorBrush(Colors.Red);
+        button.Background = new SolidColorBrush(Color.FromArgb(255, 150, 0, 0));
     }
     
     private static void UnBlockUserContext(Button button)

@@ -40,7 +40,10 @@ namespace Jarvis
 
                 InitDataStart();
 
-                UserContextBlock.BlockUserContext();
+                if (!UserContextBlock.BlockUserContext())
+                {
+                    MainFrame.Navigate(new Uri(@"ProjectJarvis\Views\Pages\SidePanel\Profile\ProfilePage.xaml", UriKind.Relative));
+                }
             }
             catch (Exception ex)
             {

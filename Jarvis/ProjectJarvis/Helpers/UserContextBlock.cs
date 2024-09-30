@@ -76,7 +76,7 @@ public static class UserContextBlock
             ResourceDictionary resourceDictionary = new ResourceDictionary();
             resourceDictionary.Source = new Uri("ProjectJarvis/Views/StylesDictionary/ButtonsDictionary.xaml", UriKind.Relative);
             button.Style = (Style)resourceDictionary["Main.SideButton"];
-            button.Background = new SolidColorBrush(Color.FromRgb(20, 20, 20));
+            button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#141414"));
         }
         catch (Exception ex)
         {

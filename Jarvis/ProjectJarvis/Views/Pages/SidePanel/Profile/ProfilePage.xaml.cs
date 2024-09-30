@@ -17,7 +17,6 @@ public partial class ProfilePage : Page
         {
             UserDto user;
             try
-
             {
                 user = auth.GetMe(session);
             }

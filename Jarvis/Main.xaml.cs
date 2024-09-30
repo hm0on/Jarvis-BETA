@@ -15,17 +15,19 @@ using Jarvis.ProjectJarvis.Settings.ConfigurationManager;
 using Jarvis.ProjectJarvis.Settings.PathManager;
 using Jarvis.ProjectJarvis.Settings.VoiceAssistant;
 using Jarvis.ProjectJarvis.Services.Authentificate;
+using Jarvis.ProjectJarvis.Model;
 
 namespace Jarvis
 {
     public partial class MainWindow
     {
-        private readonly VoskSpeechRecognition _voskRecognizer;
+        private VoskSpeechRecognition _voskRecognizer;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static bool _onVcom = true;
 
         private readonly Dictionary<string, string> _exePaths;
         private readonly ExePathManagerClass _pathManager = new();
+        private readonly IAuthentificateService _authentificateService;
 
         public MainWindow()
         {
@@ -33,24 +35,14 @@ namespace Jarvis
             {
                 InitializeComponent();
 
-                _voskRecognizer = new VoskSpeechRecognition(Dispatcher);
-
                 ContentRendered += MainWindow_Loaded;
 
-                Thread.Sleep(1000);
-
-                log4net.Config.XmlConfigurator.Configure();
-                Log.Info("[SYSTEM]: All assemblies have been loaded");
 
 
-                SettingsManagerClass settingsManager = new SettingsManagerClass();
-                string city = settingsManager.Load();
+                InitDataStart();
 
-                Log.Info("[WEATHER Parser]: User entered city: " + city);
 
-                _ = WheaterClass.GetWeatherAsync(city);
 
-                
             }
             catch (Exception ex)
             {
@@ -64,6 +56,52 @@ namespace Jarvis
                 _pathManager.UpdateExePaths(_exePaths);
             }
         }
+
+        private void InitDataStart()
+        {
+            _voskRecognizer = new VoskSpeechRecognition(Dispatcher);
+            Thread.Sleep(1000);
+
+            log4net.Config.XmlConfigurator.Configure();
+            Log.Info("[SYSTEM]: All assemblies have been loaded");
+
+
+            SettingsManagerClass settingsManager = new SettingsManagerClass();
+            string city = settingsManager.Load();
+
+            Log.Info("[WEATHER Parser]: User entered city: " + city);
+
+            _ = WheaterClass.GetWeatherAsync(city);
+        }
+
+        private void BlockUserContext()
+        {
+            MainFrame.
+        }
+
+
+        private bool AccountActiveFlag()
+        {
+            try
+            {
+                var session = SessionDto.GetSession();
+                var user = _authentificateService.GetMe(session);
+                var dateTime = user.ExpiredTime;
+
+                if (dateTime < DateTime.UtcNow)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+
+
 
         private static void PreloadAccessibilityAssembly()
         {

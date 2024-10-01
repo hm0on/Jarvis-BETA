@@ -17,9 +17,9 @@ public class SessionDto
     public string Token { get; set; }
 
     [Required]
-    public int SessionUserId { get; set; }
+    public Guid SessionUserId { get; set; }
 
-    public SessionDto(int id, DateTime lastUsage, string token, int sessionUserId)
+    public SessionDto(int id, DateTime lastUsage, string token, Guid sessionUserId)
     {
         Id = id;
         LastUsage = lastUsage;

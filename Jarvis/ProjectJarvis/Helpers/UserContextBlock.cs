@@ -2,17 +2,15 @@
 using Jarvis.ProjectJarvis.Services.Authentificate;
 using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using System;
-using System.Windows;
 using System.Windows.Media;
 using Button = System.Windows.Controls.Button;
-using Jarvis.Assets;
 using Jarvis.Project.Services.VoskSpeechRecognition;
 
 namespace Jarvis.ProjectJarvis.Helpers;
 
 public static class UserContextBlock
 {
-    public static bool VoskRecordingFlag = false;
+    public static bool VoskRecordingFlag;
 
     public static bool BlockUserContext()
     {
@@ -56,15 +54,11 @@ public static class UserContextBlock
         try
         {
             var session = SessionDto.GetSession();
-            var _authentificateService = new AuthentificateService();
-            var user = _authentificateService.GetMe(session);
+            var authenticateService = new AuthentificateService();
+            var user = authenticateService.GetMe(session);
             var dateTime = user.ExpiredTime;
 
-            if (dateTime == null | dateTime < DateTime.UtcNow)
-            {
-                return false;
-            }
-            return true;
+            return !(dateTime == null | dateTime < DateTime.UtcNow);
         }
         catch
         {
@@ -79,11 +73,9 @@ public static class UserContextBlock
         button.Background = new SolidColorBrush(Color.FromArgb(255, 150, 0, 0));
     }
     
-    private static void UnBlockUserContext(Button button)
+    private static void UnBlockUserContent(Button button)
     {
         button.IsEnabled = true;
-        ResourceDictionary resourceDictionary = new ResourceDictionary();
-        resourceDictionary.Source = new Uri("ProjectJarvis/Views/StylesDictionary/ButtonsDictionary.xaml", UriKind.Relative);
-        button.Style = (Style)resourceDictionary["Main.SideButton"];
+        button.Background  = new SolidColorBrush(Colors.Transparent);
     }
 }

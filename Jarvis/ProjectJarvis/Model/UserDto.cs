@@ -18,7 +18,7 @@ public class AuthUserDto
 public class UserDto
 {
     [Required]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     [Required]
     public string Username { get; set; }

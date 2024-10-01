@@ -39,17 +39,38 @@ public partial class ProfilePage : Page
 
             IdLabel.Content += user.Id.ToString();
             UsernameLabel.Content += user.Username;
-            if (user.ExpiredTime == null) SubscribeLabel.Content += " Не активна";
+            if (user.ExpiredTime == null)
+            {
+                SubscribeLabel.Content += " Не активна";
+            }
+            else if (DateTime.Compare(user.ExpiredTime.Value, DateTime.UtcNow) < 0)
+            {
+                SubscribeLabel.Content = "Истекла";
+            }
             else SubscribeLabel.Content += " Активна";
 
             if (user.ExpiredTime != null)
-                EndDateLabel.Content += user.ExpiredTime.Value.ToLocalTime().ToString(" dd MMMM yyyy H:m ");
+            {
+                if (DateTime.Compare(user.ExpiredTime!.Value, DateTime.UtcNow) < 0)
+                {
+                    EndDateLabel.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    EndDateLabel.Content += user.ExpiredTime!.Value.ToLocalTime().ToString(" dd MMMM yyyy H:m ");
+                }
+            }
             else
             {
                 EndDateLabel.Visibility = Visibility.Collapsed;
             }
         }
+        else
+        {
+            EndDateLabel.Visibility = Visibility.Collapsed;
+        }
     }
+
 
     public ProfilePage()
     {

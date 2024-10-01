@@ -48,7 +48,7 @@ namespace Jarvis.ProjectJarvis.Views.Pages.SidePanel.Profile
             }
         }
 
-        private void RegistrationProcess(Model.AuthUserDto user)
+        private void RegistrationProcess(AuthUserDto user)
         {
             try
             {

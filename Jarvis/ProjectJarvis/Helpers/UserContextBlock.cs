@@ -2,17 +2,18 @@
 using Jarvis.ProjectJarvis.Services.Authentificate;
 using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
-using Jarvis.ProjectJarvis.Services.GetWorkingButtons;
 using Button = System.Windows.Controls.Button;
 using Jarvis.Assets;
+using Jarvis.Project.Services.VoskSpeechRecognition;
 
 namespace Jarvis.ProjectJarvis.Helpers;
 
 public static class UserContextBlock
 {
+    public static bool VoskRecordingFlag = false;
+
     public static bool BlockUserContext()
     {
         if (!AccountActiveFlag())
@@ -20,8 +21,11 @@ public static class UserContextBlock
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
             {
-                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, ChangeUserContext);
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, BlockUserContent);
             }
+
+            VoskSpeechRecognition.waveIn?.StopRecording();
+            VoskRecordingFlag = false;
             return false;
         }
 
@@ -36,7 +40,12 @@ public static class UserContextBlock
             var buttonList = ButtonListClass.ButtonList;
             foreach (var button in buttonList)
             {
-                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, UnBlockUserContext);
+                UpdateWorkingButtonsService.UpdateWorkingButtons("ControlFrame", button, UnBlockUserContent);
+            }
+            if (!VoskRecordingFlag)
+            {
+                VoskSpeechRecognition.waveIn?.StartRecording();
+                VoskRecordingFlag = true;
             }
         }
     }
@@ -64,7 +73,7 @@ public static class UserContextBlock
         }
     }
 
-    private static void ChangeUserContext(Button button)
+    private static void BlockUserContent(Button button)
     {
         button.IsEnabled = false;
         button.Background = new SolidColorBrush(Color.FromArgb(255, 150, 0, 0));

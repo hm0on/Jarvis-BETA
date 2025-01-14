@@ -8,7 +8,7 @@ namespace Jarvis.ProjectJarvis.Services.Authentificate
 {
     public class AuthentificateService: IAuthentificateService
     {
-        private const string Url = "http://85.159.231.182/";
+        private const string Url = "http://85.192.56.155/";
         private static readonly HttpClient Client = new() { BaseAddress = new Uri(Url) };
 
         public SessionDto Register(AuthUserDto userDto)
